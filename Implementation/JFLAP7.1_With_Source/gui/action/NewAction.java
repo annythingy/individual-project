@@ -34,9 +34,10 @@ import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import javax.swing.*;
 
+import social.OmegaMachine;
+
 import automata.mealy.MealyMachine;
 import automata.mealy.MooreMachine;
-
 /**
  * The <CODE>NewAction</CODE> handles when the user decides to create some new
  * environment, that is, some sort of new automaton, or grammar, or regular
@@ -311,6 +312,19 @@ public class NewAction extends RestrictedAction {
                         createWindow(new CFPumpingLemmaChooser());
                     }
                 });
+            getContentPane().add(button);
+            
+            button = new JButton("Omega Machine");
+            button.setBackground(Color.BLACK);
+            button.setForeground(Color.WHITE);
+            button.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        createWindow(new OmegaMachine());
+                    }
+                });
+            getContentPane().add(new JLabel("PROJECT RELATED:", JLabel.CENTER));
             getContentPane().add(button);
 		}
 	}

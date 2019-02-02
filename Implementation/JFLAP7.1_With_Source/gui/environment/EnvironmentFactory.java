@@ -23,6 +23,7 @@ package gui.environment;
 import grammar.ConvertedUnrestrictedGrammar;
 import grammar.Grammar;
 import grammar.lsystem.LSystem;
+import gui.editor.DefaultToolBox;
 import gui.editor.EditorPane;
 import gui.editor.MealyToolBox;
 import gui.editor.MooreToolBox;
@@ -44,6 +45,9 @@ import pumping.PumpingLemma;
 import pumping.RegularPumpingLemma;
 
 import regular.RegularExpression;
+import social.OmegaEnvironment;
+import social.OmegaMachine;
+import social.OmegaToolBox;
 import automata.Automaton;
 import automata.mealy.MealyMachine;
 import automata.mealy.MooreMachine;
@@ -154,11 +158,21 @@ public class EnvironmentFactory {
             return env;
         } 
 		if (object instanceof Automaton) {
-			Automaton aut = (Automaton) object;
-			Environment env = new AutomatonEnvironment(aut);
-			EditorPane editor = new EditorPane(aut);
-			env.add(editor, EDITOR_NAME, EDITOR_PERMANENT_TAG);
-			return env;
+			if (object instanceof OmegaMachine){
+				Automaton aut = (Automaton) object;
+				Environment env = new OmegaEnvironment(aut);
+				EditorPane editor = new EditorPane(aut, new OmegaToolBox());
+				System.out.println("ok");
+				env.add(editor, EDITOR_NAME, EDITOR_PERMANENT_TAG);
+				return env;
+			} else {
+				Automaton aut = (Automaton) object;
+				Environment env = new AutomatonEnvironment(aut);
+				EditorPane editor = new EditorPane(aut);
+				env.add(editor, EDITOR_NAME, EDITOR_PERMANENT_TAG);
+				return env;
+			}
+			
 		} else if (object instanceof Grammar) {
 			if (object instanceof ConvertedUnrestrictedGrammar)
 			{
