@@ -2,21 +2,49 @@ package social;
 
 import java.awt.Point;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import automata.Automaton;
 import automata.State;
 import automata.turing.TuringMachine;
+import automata.turing.TuringMachineBuildingBlocks;
 
-public class OmegaMachine extends Automaton {
+public class OmegaMachine extends TuringMachineBuildingBlocks {
 	
 	private static final long serialVersionUID = 1L; //TODO what is that?
 	
-	TuringMachine coreTM = new TuringMachine(2);
-	Set<OracleMachine> oracleMs = new HashSet<>()
+	TuringMachine coreTM;
+	Set<OracleMachine> oracleMs;
 ;	
 	public OmegaMachine(){
-		OracleMachine om = new OracleMachine(new TuringMachine(2));
+		coreTM = new TuringMachine(2);
+		oracleMs = new HashSet<>(); 
 	}
+	
+	public OracleMachine createOracleMachine(Point point) {
+		int i = 0;
+		while (getOracleMachineWithID(i) != null)
+			i++;
+		OracleMachine om = new OracleMachine(i, point, coreTM);
+		addOracleMachine(om);
+		return om;
+	}
+	
+	public void addOracleMachine(OracleMachine om) {
+		oracleMs.add(om);
+	}
+	
+	public OracleMachine getOracleMachineWithID(int id) {
+		Iterator<OracleMachine> it = oracleMs.iterator();
+		while (it.hasNext()) {
+			OracleMachine om = (OracleMachine) it.next();
+			if (om.getID() == id)
+				return om;
+		}
+		return null;
+	}
+	
+	
 	
 }

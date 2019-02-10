@@ -22,21 +22,12 @@ public class OmegaToolBox extends DefaultToolBox{
 	public List<Tool> tools(AutomatonPane view, AutomatonDrawer drawer) {
 		List<Tool> list = new java.util.ArrayList<>();
 		list.add(new ArrowTool(view, drawer));
-		list.add(new StateTool(view, drawer));
+		list.add(new BuildingBlockTool(view, drawer));
+		list.add(new OracleTool(view, drawer));
 		list.add(new TransitionTool(view, drawer));
 		list.add(new DeleteTool(view, drawer));
 		list.add(new UndoTool(view, drawer));
 		list.add(new RedoTool(view, drawer));
-		//list.add(new OracleTool(view, drawer));
-		if (drawer.getAutomaton() instanceof TuringMachine) {
-			TuringMachine turingMachine = (TuringMachine) drawer.getAutomaton();
-			if (turingMachine.tapes() == 1) {
-				if (drawer.getAutomaton() instanceof TuringMachineBuildingBlocks) {
-					list.add(new BuildingBlockTool(view, drawer));
-					list.add(new BlockTransitionTool(view, drawer));
-				}
-			}
-		}
 		return list;
 	}
 }
