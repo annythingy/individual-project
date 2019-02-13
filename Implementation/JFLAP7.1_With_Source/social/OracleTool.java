@@ -14,7 +14,7 @@ public class OracleTool extends Tool {
 	
 	OracleMachine oMachine = null;
 
-	public OracleTool(AutomatonPane view, AutomatonDrawer drawer) {
+	public OracleTool(AutomatonPane view, OmegaDrawer drawer) {
 		super(view, drawer);
 	}
 
@@ -33,7 +33,6 @@ public class OracleTool extends Tool {
 		
 		oMachine = ((OmegaMachine) getAutomaton()).createOracleMachine(event.getPoint());
 		
-		
 		getView().repaint();
 	}
 
@@ -43,7 +42,7 @@ public class OracleTool extends Tool {
 	}
 
 	public KeyStroke getKey() {
-		return KeyStroke.getKeyStroke('s');
+		return KeyStroke.getKeyStroke('o');
 	}
 
 }

@@ -45,6 +45,7 @@ import pumping.PumpingLemma;
 import pumping.RegularPumpingLemma;
 
 import regular.RegularExpression;
+import social.OmegaDrawer;
 import social.OmegaEnvironment;
 import social.OmegaMachine;
 import social.OmegaToolBox;
@@ -161,8 +162,7 @@ public class EnvironmentFactory {
 			if (object instanceof OmegaMachine){
 				Automaton aut = (Automaton) object;
 				Environment env = new OmegaEnvironment(aut);
-				EditorPane editor = new EditorPane(aut, new OmegaToolBox());
-				System.out.println("ok");
+				EditorPane editor = new EditorPane(new OmegaDrawer(aut), new OmegaToolBox());
 				env.add(editor, EDITOR_NAME, EDITOR_PERMANENT_TAG);
 				return env;
 			} else {

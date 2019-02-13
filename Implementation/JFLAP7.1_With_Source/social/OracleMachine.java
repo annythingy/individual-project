@@ -17,6 +17,7 @@ public class OracleMachine extends Automaton {
 	public OracleMachine(Integer id, Point point, TuringMachine tm){
 		this.id = id;
 		this.tm = tm;
+		this.point = point;
 		System.out.println("My id is " + id + ". My TMummy has " + tm.tapes + " tapes. I live at " + point.x + " and " + point.y);
 	}
 	
@@ -26,6 +27,15 @@ public class OracleMachine extends Automaton {
 	
 	public void setPoint(Point point) {
 		this.point = point;
+	}
+
+	public Point getPoint() {
+		return point;
+	}
+	
+	@Override
+	public String toString(){
+		return "oMachine " + id + " at " + point.x + " and " +point.y;
 	}
 	
 }
