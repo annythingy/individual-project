@@ -1,22 +1,32 @@
 package social;
 
+import java.awt.event.MouseEvent;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import automata.turing.TuringMachineBuildingBlocks;
 import gui.editor.BuildingBlockTool;
-import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
 
 public class TMTool extends BuildingBlockTool {
-
+	
 	public TMTool(AutomatonPane view, OmegaDrawer drawer) {
 		super(view, drawer);
-		// TODO Auto-generated constructor stub
 	}
 	
 	protected Icon getIcon() {
 		java.net.URL url = getClass().getResource("/ICON/tm.gif");
 		return new ImageIcon(url);
 	}
-
+	
+	@Override
+	public void mousePressed(MouseEvent event) {
+		if(((OmegaMachine) drawer.getAutomaton()).getCore() == null) {
+			automata.turing.TMState block = ((TuringMachineBuildingBlocks) getAutomaton()).createBlock(event.getPoint());
+			((OmegaMachine) drawer.getAutomaton()).setCore(block.getInnerTM());
+			getView().repaint();
+		} else System.out.println("Only one TM at a time for now.");
+	}
+	
 }

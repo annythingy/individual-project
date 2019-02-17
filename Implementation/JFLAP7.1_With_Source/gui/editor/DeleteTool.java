@@ -23,6 +23,9 @@ package gui.editor;
 import gui.environment.AutomatonEnvironment;
 import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
+import social.OmegaDrawer;
+import social.OmegaMachine;
+import social.OracleMachine;
 
 import java.awt.event.MouseEvent;
 
@@ -97,5 +100,13 @@ public class DeleteTool extends Tool {
 			getAutomaton().removeTransition(trans);
 			getView().repaint();
 		}
+		
+		if (getAutomaton() instanceof OmegaMachine) ((OmegaMachine) getAutomaton()).setCore(null);
+		OracleMachine om = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
+		if (om != null) {
+			((OmegaMachine) getAutomaton()).removeOracleMachine(om);
+			getView().repaint();
+		}
+		
 	}
 }

@@ -160,7 +160,7 @@ public abstract class Tool extends SuperMouseAdapter {
 	private AutomatonPane view;
 
 	/** The drawer of the automaton */
-	private AutomatonDrawer drawer;
+	protected AutomatonDrawer drawer;
 
 	/** The automaton. */
 	private Automaton automaton;

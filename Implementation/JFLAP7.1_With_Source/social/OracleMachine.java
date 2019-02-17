@@ -12,13 +12,14 @@ public class OracleMachine extends Automaton {
 	
 	Integer id;
 	Point point;
-	TuringMachine tm;
+	TuringMachine tmCore;
 	
-	public OracleMachine(Integer id, Point point, TuringMachine tm){
+	boolean selected;
+	
+	public OracleMachine(Integer id, Point point){
 		this.id = id;
-		this.tm = tm;
 		this.point = point;
-		System.out.println("My id is " + id + ". My TMummy has " + tm.tapes + " tapes. I live at " + point.x + " and " + point.y);
+		this.tmCore = null;
 	}
 	
 	public Integer getID(){
@@ -35,7 +36,19 @@ public class OracleMachine extends Automaton {
 	
 	@Override
 	public String toString(){
-		return "oMachine " + id + " at " + point.x + " and " +point.y;
+		return "oMachine " + id + " with parent " + tmCore + " at " + point.x + " and " +point.y;
 	}
 	
+	public void setTM(TuringMachine tm) {
+		this.tmCore = tm;
+	}
+	
+	public void setSelected(boolean selected){
+		this.selected = selected;
+	}
+	
+	public boolean isSelected(){
+		return selected;
+	}
+
 }

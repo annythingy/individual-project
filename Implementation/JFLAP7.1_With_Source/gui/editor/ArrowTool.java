@@ -27,6 +27,8 @@ import gui.environment.tag.CriticalTag;
 import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
 import gui.viewer.CurvedArrow;
+import social.OmegaDrawer;
+import social.OracleMachine;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -40,6 +42,7 @@ import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.Icon;
 import javax.swing.JCheckBoxMenuItem;
@@ -67,6 +70,8 @@ import automata.turing.TMState;
 import automata.turing.TuringMachine;
 import automata.turing.TuringMachineBuildingBlocks;
 import debug.EDebug;
+
+import social.OmegaMachine;
 
 /**
  * The arrow tool is used mostly for editing existing objects.
@@ -193,6 +198,7 @@ public class ArrowTool extends Tool {
 		}
 		initialPointClick.setLocation(event.getPoint());
 		lastClickedState = getDrawer().stateAtPoint(event.getPoint());
+		if(getDrawer() instanceof OmegaDrawer) lastClickedOracleMachine = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
 		if (lastClickedState == null)
 			lastClickedTransition = getDrawer().transitionAtPoint(
 					event.getPoint());
@@ -214,7 +220,17 @@ public class ArrowTool extends Tool {
 		}
 		else if (lastClickedTransition != null) {
 			initialPointClick.setLocation(event.getPoint());
-		}	
+		}
+		else if (lastClickedOracleMachine !=null) {
+			initialPointClick.setLocation(event.getPoint());
+			if(!lastClickedOracleMachine.isSelected()){
+				Rectangle bounds = new Rectangle(0, 0, -1, -1);
+				//getView().getDrawer().getAutomaton().selectStatesWithinBounds(bounds);
+				getView().getDrawer().setSelectionBounds(bounds);
+				lastClickedOracleMachine.setSelected(true);
+			}
+			getView().repaint();
+		}
 		else {
 			ArrayList<Note> notes = getDrawer().getAutomaton().getNotes();
 			for(int k = 0; k < notes.size(); k++){
@@ -366,6 +382,23 @@ public class ArrowTool extends Tool {
 			getView().repaint();
 			//EDebug.print(getView().getDrawer().selfTransitionMap);
 		}
+		else if (lastClickedOracleMachine != null) {
+			if (event.isPopupTrigger())
+				return;
+			Point p = event.getPoint();
+			
+			Set<OracleMachine> omSet = ((OmegaMachine) getView().getDrawer().getAutomaton()).getOracleMachines();
+			for(OracleMachine curOM : omSet){
+				if(curOM.isSelected()){
+					int x = curOM.getPoint().x + p.x - initialPointClick.x;
+					int y = curOM.getPoint().y + p.y - initialPointClick.y;
+					curOM.getPoint().setLocation(x, y);
+					curOM.setPoint(curOM.getPoint());									
+				}
+			}
+			initialPointClick = p;
+			getView().repaint();
+		}
 		else{
 			Rectangle bounds;
 			int nowX = event.getPoint().x;
@@ -378,6 +411,7 @@ public class ArrowTool extends Tool {
 
             if (!transitionInFlux){
                 getView().getDrawer().getAutomaton().selectStatesWithinBounds(bounds);
+                if(getDrawer() instanceof OmegaDrawer) ((OmegaMachine) getView().getDrawer().getAutomaton()).selectOraclesWithinBounds(bounds);
                 getView().getDrawer().setSelectionBounds(bounds);
             }
 
@@ -421,12 +455,24 @@ public class ArrowTool extends Tool {
 				count++;
 			}
 		}
+		
+		if (getView().getDrawer() instanceof OmegaDrawer) {
+			Set<OracleMachine> omSet = ((OmegaMachine) getView().getDrawer().getAutomaton()).getOracleMachines();
+			for(OracleMachine om : omSet){			
+				if(om.isSelected()){	
+					count++;
+				}
+			}
+		}
+		
 		Rectangle bounds = getView().getDrawer().getSelectionBounds();
 		if(count == 1 && bounds.isEmpty() && lastClickedState!=null) lastClickedState.setSelect(false);
+		if(count == 1 && bounds.isEmpty() && lastClickedOracleMachine!=null) lastClickedOracleMachine.setSelected(false);
 		bounds = new Rectangle(0, 0, -1, -1);
 		getView().getDrawer().setSelectionBounds(bounds);
 		lastClickedState = null;
 		lastClickedTransition = null;
+		lastClickedOracleMachine = null;
 		getView().repaint();
 	}
 
@@ -800,6 +846,8 @@ public class ArrowTool extends Tool {
 	
 	/** The note that was last clicked. */
 	private Note lastClickedNote = null;
+	
+	private OracleMachine lastClickedOracleMachine = null;
 
 	/** The initial point of the state. */
 	private Point initialPointState = new Point();
