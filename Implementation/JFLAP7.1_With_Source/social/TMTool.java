@@ -9,6 +9,8 @@ import automata.turing.TuringMachineBuildingBlocks;
 import gui.editor.BuildingBlockTool;
 import gui.viewer.AutomatonPane;
 
+import social.OmegaDrawer;
+
 public class TMTool extends BuildingBlockTool {
 	
 	public TMTool(AutomatonPane view, OmegaDrawer drawer) {
@@ -25,6 +27,8 @@ public class TMTool extends BuildingBlockTool {
 		if(((OmegaMachine) drawer.getAutomaton()).getCore() == null) {
 			automata.turing.TMState block = ((TuringMachineBuildingBlocks) getAutomaton()).createBlock(event.getPoint());
 			((OmegaMachine) drawer.getAutomaton()).setCore(block.getInnerTM());
+			((OmegaDrawer) drawer).setTMX(event.getPoint().x);
+			((OmegaDrawer) drawer).setTMY(event.getPoint().y);
 			getView().repaint();
 		} else System.out.println("Only one TM at a time for now.");
 	}

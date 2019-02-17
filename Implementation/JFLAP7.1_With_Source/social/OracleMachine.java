@@ -50,5 +50,9 @@ public class OracleMachine extends Automaton {
 	public boolean isSelected(){
 		return selected;
 	}
+	
+	public TuringMachine getTM() {
+		return tmCore;
+	}
 
 }
