@@ -63,12 +63,9 @@ public class ConnectionTool extends Tool {
 	}
 	
 	public void mouseReleased(MouseEvent event) {
-		if (first == null)
-			return;
-		OracleMachine om = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
-		if (om != null) {
-		    ((OmegaDrawer) getDrawer()).drawConnection(((OmegaDrawer) getDrawer()).getGraphics(), first, om);
-		}
+		if (first == null && ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint()) == null) return;
+		OracleMachine omFriend = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
+		first.addNeighbour(omFriend);
 		first = null;
 		getView().repaint();
 	}

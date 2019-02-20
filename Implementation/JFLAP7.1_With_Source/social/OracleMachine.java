@@ -1,9 +1,10 @@
 package social;
 
 import java.awt.Point;
+import java.util.HashSet;
+import java.util.Set;
 
 import automata.Automaton;
-import automata.event.AutomataStateEvent;
 import automata.turing.TuringMachine;
 
 public class OracleMachine extends Automaton {
@@ -14,12 +15,15 @@ public class OracleMachine extends Automaton {
 	Point point;
 	TuringMachine tmCore;
 	
+	Set<OracleMachine> neighbours;
+	
 	boolean selected;
 	
 	public OracleMachine(Integer id, Point point){
 		this.id = id;
 		this.point = point;
 		this.tmCore = null;
+		this.neighbours = new HashSet<OracleMachine>();
 	}
 	
 	public Integer getID(){
@@ -53,6 +57,14 @@ public class OracleMachine extends Automaton {
 	
 	public TuringMachine getTM() {
 		return tmCore;
+	}
+	
+	public void addNeighbour(OracleMachine on){
+		neighbours.add(on);
+	}
+	
+	public Set<OracleMachine> getNeighbours(){
+		return neighbours;
 	}
 
 }

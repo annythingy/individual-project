@@ -1,5 +1,6 @@
 package social;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,7 +28,8 @@ public class OmegaDrawer extends SelectionDrawer{
 	Graphics2D g;
 	private String defaultLabel;
 	
-	private static Stroke STROKE = new java.awt.BasicStroke(2.4f);
+	private static Stroke STROKE = new java.awt.BasicStroke(0.4f);
+	Stroke dotted = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] {1,2}, 0);;
 	public static java.awt.Color COLOR = new java.awt.Color(.5f, .5f, .5f, .5f);
 	public static Color HIGHLIGHT_COLOR = new  Color(100, 200, 200);
 	
@@ -45,6 +47,7 @@ public class OmegaDrawer extends SelectionDrawer{
         Set<OracleMachine> oMachines = ((OmegaMachine) automaton).getOracleMachines();
         
         for (OracleMachine o : oMachines){
+        	drawConnections(g, o);
             drawOracleMachine(g, o);
         }
 
@@ -77,14 +80,15 @@ public class OmegaDrawer extends SelectionDrawer{
 	
 	public void drawOracleMachine(Graphics g1, OracleMachine om) {
 		Graphics2D g = (Graphics2D) g1.create();
-		
+		Stroke s = g.getStroke();
 		Point point = om.getPoint();
 		int radius = 20;
 		
 		g.setColor(Color.lightGray);
-        g.drawLine(point.x, point.y, tmX, tmY);
-		
-		g.setColor(Color.lightGray);
+		g.setStroke(dotted);
+        if(tmX != 0 && tmY != 0) g.drawLine(point.x, point.y, tmX, tmY);
+		g.setStroke(s);
+        
 		if(om.isSelected()) g.setColor(HIGHLIGHT_COLOR);
 			g.fillOval(point.x - radius, point.y - radius, 2 * radius, 2 * radius);
 		
@@ -98,16 +102,16 @@ public class OmegaDrawer extends SelectionDrawer{
 
 	}
 	
-	public void drawConnection(Graphics g, OracleMachine omA, OracleMachine omB){
-		if (omA == null)
-			return;
+	public void drawConnections(Graphics g, OracleMachine om){
 		java.awt.Graphics2D g2 = (java.awt.Graphics2D) g;
 		Stroke s = g2.getStroke();
 		g2.setStroke(STROKE);
-		g2.setColor(COLOR);
-		g2.drawLine(omA.getPoint().x, omA.getPoint().y, omB.getPoint().x, omB.getPoint().y);
+		g2.setColor(Color.lightGray);
+		for (OracleMachine on : om.getNeighbours()) {
+			g2.drawLine(om.getPoint().x, om.getPoint().y, on.getPoint().x, on.getPoint().y);
+		}
 		g2.setStroke(s);
-		System.out.println("e haide de");
+		
 	}
 	
 	public OracleMachine oMachineAtPoint(Point point) {
