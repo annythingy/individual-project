@@ -14,6 +14,7 @@ import java.util.Set;
 
 import automata.Automaton;
 import automata.State;
+import automata.turing.TMState;
 import automata.turing.TuringMachine;
 import automata.turing.TuringMachineBuildingBlocks;
 import gui.viewer.CurvedArrow;
@@ -28,10 +29,9 @@ public class OmegaDrawer extends SelectionDrawer{
 	
 	private static Stroke STROKE = new java.awt.BasicStroke(2.4f);
 	public static java.awt.Color COLOR = new java.awt.Color(.5f, .5f, .5f, .5f);
-	
 	public static Color HIGHLIGHT_COLOR = new  Color(100, 200, 200);
 	
-	public int tmX,tmY;
+	private int tmX,tmY;
 
 	public OmegaDrawer(Automaton automaton) {
 		super(automaton);
@@ -63,19 +63,16 @@ public class OmegaDrawer extends SelectionDrawer{
 	
 	public void drawTuringMachine(Graphics g2){
 		if(tmX == 0 && tmY == 0) return;
-		
 		Graphics2D g = (Graphics2D) g2.create();
 		
 		int width = 80;
 		int height = 80;
 		
-
-		
 		g.setColor(Color.pink);
 		g.fill(new RoundRectangle2D.Double(tmX-width/2, tmY-height/2, width, height, 10, 10));
 		g.setColor(Color.black);
 		g.draw(new RoundRectangle2D.Double(tmX-width/2, tmY-height/2, width, height, 10, 10));
-		g.drawString("TM CORE", tmX - width/2 + 10, tmY + 5);
+		g.drawString("TM CORE", tmX - width/2 + 10, tmY + 5); //TODO could be better
 	}
 	
 	public void drawOracleMachine(Graphics g1, OracleMachine om) {
@@ -125,6 +122,13 @@ public class OmegaDrawer extends SelectionDrawer{
 		return null;
 	}
 	
+	public TuringMachine coreTMachineAtPoint(Point point) {
+		Point turingPoint = new Point(tmX, tmY);
+		if (point.distance(turingPoint) <= StateDrawer.STATE_RADIUS)
+			return ((OmegaMachine) automaton).getCore();
+		return null;
+	}
+	
 	public Graphics2D getGraphics(){
 		return g;
 	}
@@ -137,4 +141,22 @@ public class OmegaDrawer extends SelectionDrawer{
 		this.tmY = y;
 	}
 
+	public int getTMX(){
+		return tmX;
+	}
+	
+	public int getTMY(){
+		return tmY;
+	}
+	
+	private boolean selectedTM;
+
+	public boolean isTMSelected() {
+		return selectedTM;
+	}
+
+	public void setTMSelected(boolean selected) {
+		this.selectedTM = selected;
+	}
+	
 }

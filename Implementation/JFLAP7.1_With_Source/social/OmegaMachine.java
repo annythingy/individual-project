@@ -2,17 +2,19 @@ package social;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import automata.Automaton;
 import automata.State;
 import automata.turing.TMState;
 import automata.turing.TuringMachine;
 import automata.turing.TuringMachineBuildingBlocks;
 
-public class OmegaMachine extends TuringMachineBuildingBlocks {
+public class OmegaMachine extends TuringMachineBuildingBlocks implements Serializable {
 	
 	private static final long serialVersionUID = 1L; //TODO what is that?
 	
@@ -88,4 +90,5 @@ public class OmegaMachine extends TuringMachineBuildingBlocks {
 	public TuringMachine getCore(){
 		return coreTM;
 	}
+
 }

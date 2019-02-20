@@ -176,7 +176,9 @@ public class ArrowTool extends Tool {
 		// Should we show a popup menu?
 		if (event.isPopupTrigger()) {
 			Point p = getView().transformFromAutomatonToView(event.getPoint());
-			if (lastClickedState != null && shouldShowStatePopup()) {
+			if (lastClickedTuringMachine != null) {
+				omegaTMenu.show(lastClickedTuringMachine, getView(), p);
+			} else if (lastClickedState != null && shouldShowStatePopup()) {
 				stateMenu.show(lastClickedState, getView(), p);
 			} else {
 				emptyMenu.show(getView(), p);
@@ -198,7 +200,10 @@ public class ArrowTool extends Tool {
 		}
 		initialPointClick.setLocation(event.getPoint());
 		lastClickedState = getDrawer().stateAtPoint(event.getPoint());
-		if(getDrawer() instanceof OmegaDrawer) lastClickedOracleMachine = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
+		if(getDrawer() instanceof OmegaDrawer) {
+			lastClickedOracleMachine = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
+			lastClickedTuringMachine = ((OmegaDrawer) getDrawer()).coreTMachineAtPoint(event.getPoint());
+		}
 		if (lastClickedState == null)
 			lastClickedTransition = getDrawer().transitionAtPoint(
 					event.getPoint());
@@ -225,9 +230,18 @@ public class ArrowTool extends Tool {
 			initialPointClick.setLocation(event.getPoint());
 			if(!lastClickedOracleMachine.isSelected()){
 				Rectangle bounds = new Rectangle(0, 0, -1, -1);
-				//getView().getDrawer().getAutomaton().selectStatesWithinBounds(bounds);
+				//getView().getDrawer().getAutomaton().selectStatesWithinBounds(bounds); //TODO what is this
 				getView().getDrawer().setSelectionBounds(bounds);
 				lastClickedOracleMachine.setSelected(true);
+			}
+			getView().repaint();
+		}
+		else if (lastClickedTuringMachine !=null){
+			initialPointClick.setLocation(event.getPoint());
+			if(!((OmegaDrawer) getDrawer()).isTMSelected()){
+				Rectangle bounds = new Rectangle(0, 0, -1, -1);
+				getView().getDrawer().setSelectionBounds(bounds);
+				((OmegaDrawer) getDrawer()).setTMSelected(true);
 			}
 			getView().repaint();
 		}
@@ -396,6 +410,24 @@ public class ArrowTool extends Tool {
 					curOM.setPoint(curOM.getPoint());									
 				}
 			}
+			initialPointClick = p;
+			getView().repaint();
+		}
+		else if (lastClickedTuringMachine != null) {
+			if (event.isPopupTrigger())
+				return;
+			Point p = event.getPoint();
+			OmegaDrawer oDrawer = (OmegaDrawer) getDrawer();
+			
+			if(oDrawer.isTMSelected()){
+				int x = oDrawer.getTMX() + p.x - initialPointClick.x;
+				int y = oDrawer.getTMY() + p.y - initialPointClick.y;
+
+				oDrawer.setTMX(x);
+				oDrawer.setTMY(y);
+				oDrawer.drawAutomaton(oDrawer.getGraphics());
+			}
+			
 			initialPointClick = p;
 			getView().repaint();
 		}
@@ -835,6 +867,37 @@ public class ArrowTool extends Tool {
 		private JMenuItem renameStates, adaptView;
 	}
 
+	protected class OmegaTMenu extends JPopupMenu implements ActionListener {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		private JMenuItem testMenu;
+		
+		public OmegaTMenu() {
+			testMenu = new JCheckBoxMenuItem("TEST OPTION");
+			testMenu.addActionListener(this);
+			this.add(testMenu);
+		}
+
+		public void show(TuringMachine tm, Component comp, Point at) {
+			show(comp, at.x, at.y);
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			JMenuItem item = (JMenuItem) e.getSource();
+            if (getDrawer().getAutomaton().getEnvironmentFrame() !=null)
+                ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
+            
+            System.out.println(item);
+            
+			getView().repaint();
+		}
+		private JMenuItem changeLabel, deleteLabel, deleteAllLabels, editBlock, copyBlock, replaceSymbol,
+				setName;
+	}
+	
 	/** The transition creator for editing transitions. */
 	private TransitionCreator creator;
 
@@ -848,6 +911,8 @@ public class ArrowTool extends Tool {
 	private Note lastClickedNote = null;
 	
 	private OracleMachine lastClickedOracleMachine = null;
+	
+	private TuringMachine lastClickedTuringMachine = null;
 
 	/** The initial point of the state. */
 	private Point initialPointState = new Point();
@@ -868,6 +933,8 @@ public class ArrowTool extends Tool {
 
 	/** The empty menu. */
 	private EmptyMenu emptyMenu = new EmptyMenu();
+	
+	private OmegaTMenu omegaTMenu = new OmegaTMenu();
 
     private Transition selectedTransition = null;
 }

@@ -339,4 +339,6 @@ public class TuringMachine extends Automaton {
 
     //MERLIN MERLIN MERLIN MERLIN MERLIN//
     private TMState parent = null; //not going to force it with compiler, just make sure you set it WHERE it MATTERS
+
+
 }
