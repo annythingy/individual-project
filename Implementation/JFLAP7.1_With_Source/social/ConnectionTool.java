@@ -15,15 +15,12 @@ public class ConnectionTool extends Tool {
 	
 	protected OracleMachine first;
 	protected Point hover;
-	
-	protected ConnectionCreator creator;
 
 	private static Stroke STROKE = new java.awt.BasicStroke(2.4f);
 	public static java.awt.Color COLOR = new java.awt.Color(.5f, .5f, .5f, .5f);
 
-	public ConnectionTool(AutomatonPane view, OmegaDrawer drawer, ConnectionCreator creator) {
+	public ConnectionTool(AutomatonPane view, OmegaDrawer drawer) {
 		super(view, drawer);
-		this.creator = creator;
 	}
 
 	protected Icon getIcon() {

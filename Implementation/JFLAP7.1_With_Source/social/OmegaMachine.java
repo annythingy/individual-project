@@ -20,13 +20,10 @@ public class OmegaMachine extends TuringMachineBuildingBlocks implements Seriali
 	
 	TuringMachine coreTM;
 	LinkedHashSet<OracleMachine> oracleMs;
-	//HashMap<OracleMachine, LinkedHashSet<OracleMachine>> connections;
-	HashSet<Connection> connections;
 	
 	public OmegaMachine(){
 		coreTM = null;
 		oracleMs = new LinkedHashSet<>(); 
-		connections = new HashSet<>();
 	}
 	
 	public OracleMachine createOracleMachine(Point point) {
@@ -46,10 +43,6 @@ public class OmegaMachine extends TuringMachineBuildingBlocks implements Seriali
 	
 	public void removeOracleMachine(OracleMachine om){
 		oracleMs.remove(om);
-	}
-	
-	public void addConnection(Connection c){
-		connections.add(c);
 	}
 	
 	public OracleMachine getOracleMachineWithID(int id) {
@@ -74,10 +67,6 @@ public class OmegaMachine extends TuringMachineBuildingBlocks implements Seriali
 	
 	public LinkedHashSet<OracleMachine> getOracleMachines(){
 		return oracleMs;
-	}
-	
-	public HashSet<Connection> getConnections(){
-		return connections;
 	}
 	
 	public void setCore(TuringMachine tm){

@@ -19,7 +19,7 @@ public class OmegaToolBox implements ToolBox{
 		list.add(new ArrowTool(view, drawer));
 		list.add(new TMTool(view, (OmegaDrawer) drawer));
 		list.add(new OracleTool(view, (OmegaDrawer) drawer));
-		list.add(new ConnectionTool(view, (OmegaDrawer) drawer, new ConnectionCreator()));
+		list.add(new ConnectionTool(view, (OmegaDrawer) drawer));
 		//list.add(new TransitionTool(view, drawer));
 		list.add(new DeleteTool(view, drawer));
 		//list.add(new UndoTool(view, drawer));
