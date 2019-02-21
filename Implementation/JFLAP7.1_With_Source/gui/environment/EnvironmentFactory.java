@@ -49,6 +49,10 @@ import social.OmegaDrawer;
 import social.OmegaEnvironment;
 import social.OmegaMachine;
 import social.OmegaToolBox;
+import social.OracleDrawer;
+import social.OracleEnvironment;
+import social.OracleMachine;
+import social.OracleToolBox;
 import automata.Automaton;
 import automata.mealy.MealyMachine;
 import automata.mealy.MooreMachine;
@@ -163,6 +167,12 @@ public class EnvironmentFactory {
 				Automaton aut = (Automaton) object;
 				Environment env = new OmegaEnvironment(aut);
 				EditorPane editor = new EditorPane(new OmegaDrawer(aut), new OmegaToolBox());
+				env.add(editor, EDITOR_NAME, EDITOR_PERMANENT_TAG);
+				return env;
+			} else if (object instanceof OracleMachine) {
+				Automaton aut = (Automaton) object;
+				Environment env = new OracleEnvironment(aut);
+				EditorPane editor = new EditorPane(new OracleDrawer(aut), new OracleToolBox());
 				env.add(editor, EDITOR_NAME, EDITOR_PERMANENT_TAG);
 				return env;
 			} else {

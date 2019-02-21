@@ -18,9 +18,8 @@ public class OmegaToolBox implements ToolBox{
 		List<Tool> list = new java.util.ArrayList<>();
 		list.add(new ArrowTool(view, drawer));
 		list.add(new TMTool(view, (OmegaDrawer) drawer));
-		list.add(new OracleTool(view, (OmegaDrawer) drawer));
+		list.add(new OMTool(view, (OmegaDrawer) drawer));
 		list.add(new ConnectionTool(view, (OmegaDrawer) drawer));
-		//list.add(new TransitionTool(view, drawer));
 		list.add(new DeleteTool(view, drawer));
 		//list.add(new UndoTool(view, drawer));
 		//list.add(new RedoTool(view, drawer));

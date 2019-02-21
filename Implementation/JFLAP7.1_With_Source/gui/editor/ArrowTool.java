@@ -178,6 +178,8 @@ public class ArrowTool extends Tool {
 			Point p = getView().transformFromAutomatonToView(event.getPoint());
 			if (lastClickedTuringMachine != null) {
 				omegaTMenu.show(lastClickedTuringMachine, getView(), p);
+			} else if (lastClickedOracleMachine != null) {
+				oracleMachineMenu.show(lastClickedOracleMachine, getView(), p);
 			} else if (lastClickedState != null && shouldShowStatePopup()) {
 				stateMenu.show(lastClickedState, getView(), p);
 			} else {
@@ -186,6 +188,8 @@ public class ArrowTool extends Tool {
 		}
 		lastClickedState = null;
 		lastClickedTransition = null;
+		lastClickedTuringMachine = null;
+		lastClickedOracleMachine = null;
 	}
 
 	/**
@@ -868,20 +872,51 @@ public class ArrowTool extends Tool {
 	}
 
 	protected class OmegaTMenu extends JPopupMenu implements ActionListener {
-		/**
-		 * 
-		 */
+
+		private static final long serialVersionUID = 1L;
+
+		private JMenuItem viewTM, editTM;
+		
+		public OmegaTMenu() {
+			viewTM = new JMenuItem("View Machine");
+			editTM = new JMenuItem("Edit Machine");
+			viewTM.addActionListener(this);
+			editTM.addActionListener(this);
+			this.add(viewTM);
+			this.add(editTM);
+		}
+
+		public void show(TuringMachine tm, Component comp, Point at) {
+			show(comp, at.x, at.y);
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			JMenuItem item = (JMenuItem) e.getSource();
+            if (getDrawer().getAutomaton().getEnvironmentFrame() !=null)
+                ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
+            
+            if(item == viewTM) return; //TODO
+            else if (item == editTM) return; //TODO
+            
+			getView().repaint();
+		}
+		private JMenuItem changeLabel, deleteLabel, deleteAllLabels, editBlock, copyBlock, replaceSymbol,
+				setName;
+	}
+	
+	protected class OracleMachineMenu extends JPopupMenu implements ActionListener {
+
 		private static final long serialVersionUID = 1L;
 
 		private JMenuItem testMenu;
 		
-		public OmegaTMenu() {
-			testMenu = new JCheckBoxMenuItem("TEST OPTION");
+		public OracleMachineMenu() {
+			testMenu = new JCheckBoxMenuItem("TEST OM OPTION");
 			testMenu.addActionListener(this);
 			this.add(testMenu);
 		}
 
-		public void show(TuringMachine tm, Component comp, Point at) {
+		public void show(OracleMachine om, Component comp, Point at) {
 			show(comp, at.x, at.y);
 		}
 
@@ -894,8 +929,6 @@ public class ArrowTool extends Tool {
             
 			getView().repaint();
 		}
-		private JMenuItem changeLabel, deleteLabel, deleteAllLabels, editBlock, copyBlock, replaceSymbol,
-				setName;
 	}
 	
 	/** The transition creator for editing transitions. */
@@ -935,6 +968,8 @@ public class ArrowTool extends Tool {
 	private EmptyMenu emptyMenu = new EmptyMenu();
 	
 	private OmegaTMenu omegaTMenu = new OmegaTMenu();
+	
+	private OracleMachineMenu oracleMachineMenu = new OracleMachineMenu();
 
     private Transition selectedTransition = null;
 }

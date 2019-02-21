@@ -10,11 +10,11 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 
-public class OracleTool extends Tool {
+public class OMTool extends Tool {
 	
 	OracleMachine oMachine = null;
 
-	public OracleTool(AutomatonPane view, OmegaDrawer drawer) {
+	public OMTool(AutomatonPane view, OmegaDrawer drawer) {
 		super(view, drawer);
 	}
 

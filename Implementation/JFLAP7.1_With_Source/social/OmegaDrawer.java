@@ -56,7 +56,11 @@ public class OmegaDrawer extends SelectionDrawer{
 		g.setFont(g.getFont().deriveFont(12.0f));
 		g.setColor(Color.black);
 		
-		drawTuringMachine(g2);
+		if(((OmegaMachine) automaton).getCore() != null) drawTuringMachine(g2);
+		else {
+			setTMX(0);
+			setTMY(0);
+		}
 		
 		this.drawSelectionBox(g);
 		g.dispose();

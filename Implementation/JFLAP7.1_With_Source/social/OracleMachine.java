@@ -17,12 +17,15 @@ public class OracleMachine extends Automaton {
 	
 	Set<OracleMachine> neighbours;
 	
+	Set<Oracle> oracles;
+	
 	boolean selected;
 	
 	public OracleMachine(Integer id, Point point){
 		this.id = id;
 		this.point = point;
 		this.tmCore = null;
+		this.oracles = new HashSet<Oracle>(1);
 		this.neighbours = new HashSet<OracleMachine>();
 	}
 	
@@ -59,12 +62,20 @@ public class OracleMachine extends Automaton {
 		return tmCore;
 	}
 	
+	public void addOracle(Oracle o) {
+		oracles.add(o);
+	}
+	
 	public void addNeighbour(OracleMachine on){
 		neighbours.add(on);
 	}
 	
 	public Set<OracleMachine> getNeighbours(){
 		return neighbours;
+	}
+	
+	public boolean isAtomic() {
+		return oracles.size() == 1;
 	}
 
 }

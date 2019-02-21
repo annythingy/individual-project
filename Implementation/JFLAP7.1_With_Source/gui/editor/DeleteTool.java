@@ -34,7 +34,7 @@ import javax.swing.KeyStroke;
 
 import automata.State;
 import automata.Transition;
-
+import automata.turing.TuringMachine;
 import debug.EDebug;
 /**
  * A tool that handles the deletion of states and transitions.
@@ -89,24 +89,33 @@ public class DeleteTool extends Tool {
 	public void mouseClicked(MouseEvent event) {
 		if (getDrawer().getAutomaton().getEnvironmentFrame() !=null)
     		((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
+		
 		State state = getDrawer().stateAtPoint(event.getPoint());
 		if (state != null) {
 			getAutomaton().removeState(state);
 			getView().repaint();
 			return;
 		}
+		
 		Transition trans = getDrawer().transitionAtPoint(event.getPoint());
 		if (trans != null) {
 			getAutomaton().removeTransition(trans);
 			getView().repaint();
 		}
 		
-		if (getAutomaton() instanceof OmegaMachine) ((OmegaMachine) getAutomaton()).setCore(null);
-		OracleMachine om = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
-		if (om != null) {
-			((OmegaMachine) getAutomaton()).removeOracleMachine(om);
+		if (getAutomaton() instanceof OmegaMachine) {
+			
+			TuringMachine tm = ((OmegaDrawer) getDrawer()).coreTMachineAtPoint(event.getPoint());
+			if (tm != null) {
+				((OmegaMachine) getAutomaton()).setCore(null);
+			}
+			
+			OracleMachine om = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
+			if (om != null) {
+				((OmegaMachine) getAutomaton()).removeOracleMachine(om);
+			}
+			
 			getView().repaint();
-		}
-		
+		}	
 	}
 }
