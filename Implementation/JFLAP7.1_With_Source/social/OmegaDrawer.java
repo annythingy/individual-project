@@ -112,7 +112,7 @@ public class OmegaDrawer extends SelectionDrawer{
 		g2.setStroke(STROKE);
 		g2.setColor(Color.lightGray);
 		for (OracleMachine on : om.getNeighbours()) {
-			g2.drawLine(om.getPoint().x, om.getPoint().y, on.getPoint().x, on.getPoint().y);
+			if (on != null) g2.drawLine(om.getPoint().x, om.getPoint().y, on.getPoint().x, on.getPoint().y);
 		}
 		g2.setStroke(s);
 		
