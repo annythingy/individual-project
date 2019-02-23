@@ -22,7 +22,6 @@ public class OmegaDrawer extends SelectionDrawer {
 
 	Automaton automaton;
 	Graphics2D g;
-	private String defaultLabel;
 
 	private static Stroke STROKE = new java.awt.BasicStroke(0.4f);
 	Stroke dotted = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] { 1, 2 }, 0);;
@@ -35,7 +34,6 @@ public class OmegaDrawer extends SelectionDrawer {
 	public OmegaDrawer(Automaton automaton) {
 		super(automaton);
 		this.automaton = automaton;
-		defaultLabel = "Arya";
 	}
 
 	public void drawAutomaton(Graphics g2) {
@@ -45,6 +43,9 @@ public class OmegaDrawer extends SelectionDrawer {
 
 		for (OracleMachine o : oMachines) {
 			drawConnections(g, o);
+		}
+		
+		for (OracleMachine o : oMachines) {
 			drawOracleMachine(g, o);
 		}
 
@@ -113,10 +114,8 @@ public class OmegaDrawer extends SelectionDrawer {
 		g2.setColor(Color.lightGray);
 		for (OracleMachine on : om.getNeighbours()) {
 			if (on != null) {
-				g2.setColor(Color.lightGray);
 				g2.drawLine(om.getPoint().x, om.getPoint().y, on.getPoint().x, on.getPoint().y);
 			}
-
 		}
 		g2.setStroke(s);
 
