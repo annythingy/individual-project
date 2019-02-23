@@ -23,6 +23,7 @@ package gui.editor;
 import gui.environment.AutomatonEnvironment;
 import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
+import social.Connection;
 import social.OmegaDrawer;
 import social.OmegaMachine;
 import social.OracleMachine;
@@ -113,6 +114,11 @@ public class DeleteTool extends Tool {
 			OracleMachine om = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
 			if (om != null) {
 				((OmegaMachine) getAutomaton()).removeOracleMachine(om);
+			}
+			
+			Connection co = ((OmegaDrawer) getDrawer()).connectionAtPoint(event.getPoint());
+			if (co != null) {
+				((OmegaMachine) getAutomaton()).removeConnection(co);
 			}
 			
 			getView().repaint();

@@ -3,14 +3,10 @@ package social;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import automata.Automaton;
-import automata.State;
-import automata.turing.TMState;
 import automata.turing.TuringMachine;
 import automata.turing.TuringMachineBuildingBlocks;
 
@@ -19,11 +15,13 @@ public class OmegaMachine extends TuringMachineBuildingBlocks implements Seriali
 	private static final long serialVersionUID = 1L; //TODO what is that?
 	
 	TuringMachine coreTM;
-	LinkedHashSet<OracleMachine> oracleMs;
+	Set<OracleMachine> oracleMs;
+	Set<Connection> connections;
 	
 	public OmegaMachine(){
 		coreTM = null;
 		oracleMs = new LinkedHashSet<>(); 
+		connections = new LinkedHashSet<Connection>();
 	}
 	
 	public OracleMachine createOracleMachine(Point point) {
@@ -65,8 +63,21 @@ public class OmegaMachine extends TuringMachineBuildingBlocks implements Seriali
 		}
 	}
 	
-	public LinkedHashSet<OracleMachine> getOracleMachines(){
+	public void addConnection(OracleMachine omA, OracleMachine omB) {
+		connections.add(new Connection(omA, omB));
+	}
+	
+	public void removeConnection(Connection c) {
+		c.removeSelf();
+		connections.remove(c);
+	}
+	
+	public Set<OracleMachine> getOracleMachines(){
 		return oracleMs;
+	}
+	
+	public Set<Connection> getConnections(){
+		return connections;
 	}
 	
 	public void setCore(TuringMachine tm){

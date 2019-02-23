@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.geom.RoundRectangle2D;
@@ -112,7 +114,15 @@ public class OmegaDrawer extends SelectionDrawer{
 		g2.setStroke(STROKE);
 		g2.setColor(Color.lightGray);
 		for (OracleMachine on : om.getNeighbours()) {
-			if (on != null) g2.drawLine(om.getPoint().x, om.getPoint().y, on.getPoint().x, on.getPoint().y);
+			if (on != null){
+				g2.setColor(Color.CYAN);
+				g2.fill(new Connection(om, on).getSelectableArea());
+
+				
+				g2.setColor(Color.lightGray);
+				g2.drawLine(om.getPoint().x, om.getPoint().y, on.getPoint().x, on.getPoint().y);
+			}
+			
 		}
 		g2.setStroke(s);
 		
@@ -137,9 +147,18 @@ public class OmegaDrawer extends SelectionDrawer{
 		return null;
 	}
 	
+	public Connection connectionAtPoint(Point point) {
+		for(Connection c : ((OmegaMachine) automaton).getConnections()) {
+			if(c.getSelectableArea().contains(point)) System.out.println("razgele");return c;
+		}
+		return null;
+	}
+	
 	public Graphics2D getGraphics(){
 		return g;
 	}
+	
+
 	
 	public void setTMX(int x) {
 		this.tmX = x;

@@ -70,6 +70,10 @@ public class OracleMachine extends Automaton {
 		neighbours.add(on);
 	}
 	
+	public void removeNeighbour(OracleMachine on){
+		neighbours.remove(on);
+	}
+	
 	public Set<OracleMachine> getNeighbours(){
 		return neighbours;
 	}
