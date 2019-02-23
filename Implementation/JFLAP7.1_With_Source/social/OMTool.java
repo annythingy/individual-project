@@ -1,7 +1,6 @@
 package social;
 
 import gui.editor.Tool;
-import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
 
 import java.awt.event.MouseEvent;

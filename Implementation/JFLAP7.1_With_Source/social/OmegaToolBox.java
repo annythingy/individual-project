@@ -4,11 +4,8 @@ import java.util.List;
 
 import gui.editor.ArrowTool;
 import gui.editor.DeleteTool;
-import gui.editor.RedoTool;
 import gui.editor.Tool;
 import gui.editor.ToolBox;
-import gui.editor.TransitionTool;
-import gui.editor.UndoTool;
 import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
 

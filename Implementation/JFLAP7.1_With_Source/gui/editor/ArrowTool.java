@@ -875,6 +875,7 @@ public class ArrowTool extends Tool {
 
 		private static final long serialVersionUID = 1L;
 
+		private TuringMachine tm;
 		private JMenuItem viewTM, editTM;
 		
 		public OmegaTMenu() {
@@ -887,6 +888,7 @@ public class ArrowTool extends Tool {
 		}
 
 		public void show(TuringMachine tm, Component comp, Point at) {
+			this.tm = tm;
 			show(comp, at.x, at.y);
 		}
 
@@ -900,23 +902,23 @@ public class ArrowTool extends Tool {
             
 			getView().repaint();
 		}
-		private JMenuItem changeLabel, deleteLabel, deleteAllLabels, editBlock, copyBlock, replaceSymbol,
-				setName;
 	}
 	
 	protected class OracleMachineMenu extends JPopupMenu implements ActionListener {
 
 		private static final long serialVersionUID = 1L;
 
-		private JMenuItem testMenu;
+		private OracleMachine om;
+		private JMenuItem itemRename;
 		
 		public OracleMachineMenu() {
-			testMenu = new JCheckBoxMenuItem("TEST OM OPTION");
-			testMenu.addActionListener(this);
-			this.add(testMenu);
+			itemRename = new JMenuItem("Rename machine");
+			itemRename.addActionListener(this);
+			this.add(itemRename);
 		}
 
 		public void show(OracleMachine om, Component comp, Point at) {
+			this.om = om;
 			show(comp, at.x, at.y);
 		}
 
@@ -925,7 +927,19 @@ public class ArrowTool extends Tool {
             if (getDrawer().getAutomaton().getEnvironmentFrame() !=null)
                 ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
             
-            System.out.println(item);
+            if(item == itemRename){
+				String oldName = om.getName();
+				oldName = oldName == null ? "" : oldName;
+				String newName = (String) JOptionPane.showInputDialog(this,
+						"Input a new name, or \n"
+								+ "set blank to set default", "New Name",
+						JOptionPane.QUESTION_MESSAGE, null, null, oldName);
+				if (newName == null)
+					return;
+				if (newName.equals(""))
+					newName = null;
+				om.setName(newName);
+            }
             
 			getView().repaint();
 		}

@@ -8,31 +8,44 @@ import automata.Automaton;
 import automata.turing.TuringMachine;
 
 public class OracleMachine extends Automaton {
-	
-	private static final long serialVersionUID = 1L; //TODO what is that?
-	
+
+	private static final long serialVersionUID = 1L; // TODO what is that?
+
 	Integer id;
 	Point point;
 	TuringMachine tmCore;
 	
+	String name;
+	
+	String defaultName = "Someone";
+
 	Set<OracleMachine> neighbours;
-	
+
 	Set<Oracle> oracles;
-	
+
 	boolean selected;
-	
-	public OracleMachine(Integer id, Point point){
+
+	public OracleMachine(Integer id, Point point) {
 		this.id = id;
 		this.point = point;
 		this.tmCore = null;
+		this.name = defaultName;
 		this.oracles = new HashSet<Oracle>(1);
 		this.neighbours = new HashSet<OracleMachine>();
 	}
-	
-	public Integer getID(){
+
+	public Integer getID() {
 		return id;
 	}
 	
+	public String getName(){
+		return name;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+
 	public void setPoint(Point point) {
 		this.point = point;
 	}
@@ -40,44 +53,44 @@ public class OracleMachine extends Automaton {
 	public Point getPoint() {
 		return point;
 	}
-	
+
 	@Override
-	public String toString(){
-		return "oMachine " + id + " with parent " + tmCore + " at " + point.x + " and " +point.y;
+	public String toString() {
+		return "oMachine " + id + " with parent " + tmCore + " at " + point.x + " and " + point.y;
 	}
-	
+
 	public void setTM(TuringMachine tm) {
 		this.tmCore = tm;
 	}
-	
-	public void setSelected(boolean selected){
+
+	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
-	
-	public boolean isSelected(){
+
+	public boolean isSelected() {
 		return selected;
 	}
-	
+
 	public TuringMachine getTM() {
 		return tmCore;
 	}
-	
+
 	public void addOracle(Oracle o) {
 		oracles.add(o);
 	}
-	
-	public void addNeighbour(OracleMachine on){
+
+	public void addNeighbour(OracleMachine on) {
 		neighbours.add(on);
 	}
-	
-	public void removeNeighbour(OracleMachine on){
+
+	public void removeNeighbour(OracleMachine on) {
 		neighbours.remove(on);
 	}
-	
-	public Set<OracleMachine> getNeighbours(){
+
+	public Set<OracleMachine> getNeighbours() {
 		return neighbours;
 	}
-	
+
 	public boolean isAtomic() {
 		return oracles.size() == 1;
 	}
