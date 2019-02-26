@@ -13,14 +13,13 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-import automata.Automaton;
 import automata.turing.TuringMachine;
 import gui.viewer.SelectionDrawer;
 import gui.viewer.StateDrawer;
 
 public class OmegaDrawer extends SelectionDrawer {
 
-	Automaton automaton;
+	OmegaMachine automaton;
 	Graphics2D g;
 
 	private static Stroke STROKE = new java.awt.BasicStroke(0.4f);
@@ -31,7 +30,7 @@ public class OmegaDrawer extends SelectionDrawer {
 	private boolean selectedTM;
 	private int tmX, tmY;
 
-	public OmegaDrawer(Automaton automaton) {
+	public OmegaDrawer(OmegaMachine automaton) {
 		super(automaton);
 		this.automaton = automaton;
 	}
@@ -134,7 +133,7 @@ public class OmegaDrawer extends SelectionDrawer {
 		return null;
 	}
 
-	public TuringMachine coreTMachineAtPoint(Point point) {
+	public TuringMachine corePTMachineAtPoint(Point point) {
 		Point turingPoint = new Point(tmX, tmY);
 		if (point.distance(turingPoint) <= StateDrawer.STATE_RADIUS)
 			return ((OmegaMachine) automaton).getCore();

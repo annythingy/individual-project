@@ -26,7 +26,7 @@ public class TMTool extends BuildingBlockTool {
 	public void mousePressed(MouseEvent event) {
 		if(((OmegaMachine) drawer.getAutomaton()).getCore() == null) {
 			automata.turing.TMState block = ((TuringMachineBuildingBlocks) getAutomaton()).createBlock(event.getPoint());
-			((OmegaMachine) drawer.getAutomaton()).setCore(block.getInnerTM());
+			((OmegaMachine) drawer.getAutomaton()).setCore(new PersistentTuringMachine(block.getInnerTM()));
 			((OmegaDrawer) drawer).setTMX(event.getPoint().x);
 			((OmegaDrawer) drawer).setTMY(event.getPoint().y);
 			getView().repaint();

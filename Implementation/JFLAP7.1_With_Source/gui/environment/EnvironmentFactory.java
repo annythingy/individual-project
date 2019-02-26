@@ -165,14 +165,14 @@ public class EnvironmentFactory {
 		if (object instanceof Automaton) {
 			if (object instanceof OmegaMachine){
 				Automaton aut = (Automaton) object;
-				Environment env = new OmegaEnvironment(aut);
-				EditorPane editor = new EditorPane(new OmegaDrawer(aut), new OmegaToolBox());
+				Environment env = new OmegaEnvironment((OmegaMachine) aut);
+				EditorPane editor = new EditorPane(new OmegaDrawer((OmegaMachine) aut), new OmegaToolBox());
 				env.add(editor, EDITOR_NAME, EDITOR_PERMANENT_TAG);
 				return env;
 			} else if (object instanceof OracleMachine) {
 				Automaton aut = (Automaton) object;
 				Environment env = new OracleEnvironment(aut);
-				EditorPane editor = new EditorPane(new OracleDrawer(aut), new OracleToolBox());
+				EditorPane editor = new EditorPane(new OracleDrawer((OracleMachine) aut), new OracleToolBox());
 				env.add(editor, EDITOR_NAME, EDITOR_PERMANENT_TAG);
 				return env;
 			} else {

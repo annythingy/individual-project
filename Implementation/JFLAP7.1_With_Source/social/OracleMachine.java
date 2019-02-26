@@ -13,7 +13,7 @@ public class OracleMachine extends Automaton {
 
 	Integer id;
 	Point point;
-	TuringMachine tmCore;
+	PersistentTuringMachine tmCore;
 	
 	String name;
 	
@@ -59,7 +59,7 @@ public class OracleMachine extends Automaton {
 		return "oMachine " + id + " with parent " + tmCore + " at " + point.x + " and " + point.y;
 	}
 
-	public void setTM(TuringMachine tm) {
+	public void setTM(PersistentTuringMachine tm) {
 		this.tmCore = tm;
 	}
 

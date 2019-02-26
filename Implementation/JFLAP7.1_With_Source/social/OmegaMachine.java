@@ -7,14 +7,13 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import automata.turing.TuringMachine;
 import automata.turing.TuringMachineBuildingBlocks;
 
 public class OmegaMachine extends TuringMachineBuildingBlocks implements Serializable {
 	
 	private static final long serialVersionUID = 1L; //TODO what is that?
 	
-	TuringMachine coreTM;
+	PersistentTuringMachine coreTM;
 	Set<OracleMachine> oracleMs;
 	Set<Connection> connections;
 	
@@ -80,14 +79,14 @@ public class OmegaMachine extends TuringMachineBuildingBlocks implements Seriali
 		return connections;
 	}
 	
-	public void setCore(TuringMachine tm){
+	public void setCore(PersistentTuringMachine tm){
 		this.coreTM = tm;
 		for(OracleMachine om : oracleMs) {
 			om.setTM(tm);
 		}
 	}
 	
-	public TuringMachine getCore(){
+	public PersistentTuringMachine getCore(){
 		return coreTM;
 	}
 

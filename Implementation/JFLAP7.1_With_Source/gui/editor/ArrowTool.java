@@ -29,6 +29,7 @@ import gui.viewer.AutomatonPane;
 import gui.viewer.CurvedArrow;
 import social.OmegaDrawer;
 import social.OracleMachine;
+import social.PersistentTuringMachine;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -176,8 +177,8 @@ public class ArrowTool extends Tool {
 		// Should we show a popup menu?
 		if (event.isPopupTrigger()) {
 			Point p = getView().transformFromAutomatonToView(event.getPoint());
-			if (lastClickedTuringMachine != null) {
-				omegaTMenu.show(lastClickedTuringMachine, getView(), p);
+			if (lastClickedPTM != null) {
+				omegaTMenu.show(lastClickedPTM, getView(), p);
 			} else if (lastClickedOracleMachine != null) {
 				oracleMachineMenu.show(lastClickedOracleMachine, getView(), p);
 			} else if (lastClickedState != null && shouldShowStatePopup()) {
@@ -188,7 +189,7 @@ public class ArrowTool extends Tool {
 		}
 		lastClickedState = null;
 		lastClickedTransition = null;
-		lastClickedTuringMachine = null;
+		lastClickedPTM = null;
 		lastClickedOracleMachine = null;
 	}
 
@@ -206,7 +207,7 @@ public class ArrowTool extends Tool {
 		lastClickedState = getDrawer().stateAtPoint(event.getPoint());
 		if(getDrawer() instanceof OmegaDrawer) {
 			lastClickedOracleMachine = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
-			lastClickedTuringMachine = ((OmegaDrawer) getDrawer()).coreTMachineAtPoint(event.getPoint());
+			lastClickedPTM = (PersistentTuringMachine) ((OmegaDrawer) getDrawer()).corePTMachineAtPoint(event.getPoint());
 		}
 		if (lastClickedState == null)
 			lastClickedTransition = getDrawer().transitionAtPoint(
@@ -240,7 +241,7 @@ public class ArrowTool extends Tool {
 			}
 			getView().repaint();
 		}
-		else if (lastClickedTuringMachine !=null){
+		else if (lastClickedPTM !=null){
 			initialPointClick.setLocation(event.getPoint());
 			if(!((OmegaDrawer) getDrawer()).isTMSelected()){
 				Rectangle bounds = new Rectangle(0, 0, -1, -1);
@@ -417,7 +418,7 @@ public class ArrowTool extends Tool {
 			initialPointClick = p;
 			getView().repaint();
 		}
-		else if (lastClickedTuringMachine != null) {
+		else if (lastClickedPTM != null) {
 			if (event.isPopupTrigger())
 				return;
 			Point p = event.getPoint();
@@ -875,7 +876,7 @@ public class ArrowTool extends Tool {
 
 		private static final long serialVersionUID = 1L;
 
-		private TuringMachine tm;
+		private PersistentTuringMachine tm;
 		private JMenuItem viewTM, editTM;
 		
 		public OmegaTMenu() {
@@ -887,7 +888,7 @@ public class ArrowTool extends Tool {
 			this.add(editTM);
 		}
 
-		public void show(TuringMachine tm, Component comp, Point at) {
+		public void show(PersistentTuringMachine tm, Component comp, Point at) {
 			this.tm = tm;
 			show(comp, at.x, at.y);
 		}
@@ -959,7 +960,7 @@ public class ArrowTool extends Tool {
 	
 	private OracleMachine lastClickedOracleMachine = null;
 	
-	private TuringMachine lastClickedTuringMachine = null;
+	private PersistentTuringMachine lastClickedPTM = null;
 
 	/** The initial point of the state. */
 	private Point initialPointState = new Point();

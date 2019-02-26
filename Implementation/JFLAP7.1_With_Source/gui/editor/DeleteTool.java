@@ -27,6 +27,7 @@ import social.Connection;
 import social.OmegaDrawer;
 import social.OmegaMachine;
 import social.OracleMachine;
+import social.PersistentTuringMachine;
 
 import java.awt.event.MouseEvent;
 
@@ -106,7 +107,7 @@ public class DeleteTool extends Tool {
 		
 		if (getAutomaton() instanceof OmegaMachine) {
 			
-			TuringMachine tm = ((OmegaDrawer) getDrawer()).coreTMachineAtPoint(event.getPoint());
+			PersistentTuringMachine tm = (PersistentTuringMachine) ((OmegaDrawer) getDrawer()).corePTMachineAtPoint(event.getPoint());
 			if (tm != null) {
 				((OmegaMachine) getAutomaton()).setCore(null);
 			}
