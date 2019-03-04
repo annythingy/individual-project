@@ -77,7 +77,7 @@ public class OmegaDrawer extends SelectionDrawer {
 		g.fill(new RoundRectangle2D.Double(tmX - width / 2, tmY - height / 2, width, height, 10, 10));
 		g.setColor(Color.black);
 		g.draw(new RoundRectangle2D.Double(tmX - width / 2, tmY - height / 2, width, height, 10, 10));
-		g.drawString("TM CORE", tmX - width / 2 + 10, tmY + 5); 
+		g.drawString(automaton.getCore().getName(), tmX - width / 2 + 10, tmY + 5); //TODO center text
 	}
 
 	public void drawOracleMachine(Graphics g1, OracleMachine om) {

@@ -27,6 +27,7 @@ import file.ParseException;
 import gui.environment.EnvironmentFrame;
 import gui.environment.FrameFactory;
 import gui.environment.Universe;
+import social.PersistentTuringMachine;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -176,12 +177,14 @@ public class OpenAction extends RestrictedAction {
 				Serializable object = codecs[i].decode(file, null);
 				System.out.println(openOrRead);
 				if (openOrRead && !(object instanceof TuringMachineBuildingBlocks)) {
-					dontOpen = true;
-                    JOptionPane.showMessageDialog(null,
-                            "Only single-tape Turing machines can be used as building blocks!", "Wrong File Type",
-                            JOptionPane.ERROR_MESSAGE);
-                    
-                    return;
+					if (!(object instanceof TuringMachine)) {
+						dontOpen = true;
+	                    JOptionPane.showMessageDialog(null,
+	                            "Only single-tape Turing machines can be used as building blocks!", "Wrong File Type",
+	                            JOptionPane.ERROR_MESSAGE);
+	                    
+	                    return;
+					}
 					
 				}
 				lastObject = object;

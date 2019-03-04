@@ -27,6 +27,7 @@ import gui.environment.tag.CriticalTag;
 import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
 import gui.viewer.CurvedArrow;
+import social.EditPTMPane;
 import social.OmegaDrawer;
 import social.OracleMachine;
 import social.PersistentTuringMachine;
@@ -872,14 +873,14 @@ public class ArrowTool extends Tool {
 		private JMenuItem renameStates, adaptView;
 	}
 
-	protected class OmegaTMenu extends JPopupMenu implements ActionListener {
+	protected class OmegaPTMenu extends JPopupMenu implements ActionListener {
 
 		private static final long serialVersionUID = 1L;
 
-		private PersistentTuringMachine tm;
-		private JMenuItem viewTM, editTM;
+		private PersistentTuringMachine ptm;
+		private JMenuItem viewTM, editTM;	
 		
-		public OmegaTMenu() {
+		public OmegaPTMenu() {
 			viewTM = new JMenuItem("View Machine");
 			editTM = new JMenuItem("Edit Machine");
 			viewTM.addActionListener(this);
@@ -888,18 +889,34 @@ public class ArrowTool extends Tool {
 			this.add(editTM);
 		}
 
-		public void show(PersistentTuringMachine tm, Component comp, Point at) {
-			this.tm = tm;
+		public void show(PersistentTuringMachine ptm, Component comp, Point at) {
+			this.ptm = ptm;
 			show(comp, at.x, at.y);
 		}
 
 		public void actionPerformed(ActionEvent e) {
 			JMenuItem item = (JMenuItem) e.getSource();
-            if (getDrawer().getAutomaton().getEnvironmentFrame() !=null)
+            if (getDrawer().getAutomaton().getEnvironmentFrame() != null)
                 ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
             
             if(item == viewTM) return; //TODO
-            else if (item == editTM) return; //TODO
+            else if (item == editTM) { 
+            	OmegaMachine parent = ptm.getOmegaParent();
+            	
+            	EditPTMPane editor = new EditPTMPane(ptm);
+            	
+				EnvironmentFrame rootFrame = parent.getEnvironmentFrame();
+				
+
+				editor.setPTM(ptm);
+				Environment envir = rootFrame.getEnvironment();
+				envir.add(editor, "Edit PTM", new CriticalTag() {
+				});
+
+				if(envir == null || rootFrame == null) System.out.println("whupsie");
+				
+				envir.setActive(editor);
+			}
             
 			getView().repaint();
 		}
@@ -982,7 +999,7 @@ public class ArrowTool extends Tool {
 	/** The empty menu. */
 	private EmptyMenu emptyMenu = new EmptyMenu();
 	
-	private OmegaTMenu omegaTMenu = new OmegaTMenu();
+	private OmegaPTMenu omegaTMenu = new OmegaPTMenu();
 	
 	private OracleMachineMenu oracleMachineMenu = new OracleMachineMenu();
 

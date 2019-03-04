@@ -14,7 +14,7 @@ public class OmegaToolBox implements ToolBox{
 	public List<Tool> tools(AutomatonPane view, AutomatonDrawer drawer) {
 		List<Tool> list = new java.util.ArrayList<>();
 		list.add(new ArrowTool(view, drawer));
-		list.add(new TMTool(view, (OmegaDrawer) drawer));
+		list.add(new PTMTool(view, (OmegaDrawer) drawer));
 		list.add(new OMTool(view, (OmegaDrawer) drawer));
 		list.add(new ConnectionTool(view, (OmegaDrawer) drawer));
 		list.add(new DeleteTool(view, drawer));

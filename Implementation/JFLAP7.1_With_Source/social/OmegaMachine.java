@@ -2,14 +2,20 @@ package social;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.File;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import automata.turing.TuringMachineBuildingBlocks;
+import javax.swing.JButton;
 
-public class OmegaMachine extends TuringMachineBuildingBlocks implements Serializable {
+import automata.Automaton;
+import automata.turing.TuringMachine;
+import automata.turing.TuringMachineBuildingBlocks;
+import gui.action.OpenAction;
+
+public class OmegaMachine extends Automaton implements Serializable {
 	
 	private static final long serialVersionUID = 1L; //TODO what is that?
 	
@@ -79,15 +85,49 @@ public class OmegaMachine extends TuringMachineBuildingBlocks implements Seriali
 		return connections;
 	}
 	
-	public void setCore(PersistentTuringMachine tm){
-		this.coreTM = tm;
+	public PersistentTuringMachine createPTM(Point point){
+		OpenAction read = new OpenAction();
+		OpenAction.setOpenOrRead(true);
+		JButton button = new JButton(read);
+		button.doClick();
+		OpenAction.setOpenOrRead(false);
+		return getAutomatonFromFile(point);
+	}
+	
+	public void setCore(PersistentTuringMachine ptm){
+		this.coreTM = ptm;
+		ptm.setOmegaParent(this);
 		for(OracleMachine om : oracleMs) {
-			om.setTM(tm);
+			om.setTM(ptm);
 		}
 	}
 	
 	public PersistentTuringMachine getCore(){
 		return coreTM;
+	}
+	
+	private PersistentTuringMachine getAutomatonFromFile(Point point) {
+		if (OpenAction.dontOpen) {
+			return null;
+		}
+		
+		Serializable serial = OpenAction.getLastObjectOpened();
+		File lastFile = OpenAction.getLastFileOpened();
+		if (lastFile == null || OpenAction.isOpened() == false) {
+			return null;
+		}
+
+        TuringMachine tm = (TuringMachine) serial;
+
+        tm.setEnvironmentFrame(this.getEnvironmentFrame());
+
+        PersistentTuringMachine block = new PersistentTuringMachine(tm);
+
+		block.setName(lastFile.getName().substring(0, lastFile.getName().length() - 4));
+		
+		System.out.println(tm);
+		
+		return block;
 	}
 
 }

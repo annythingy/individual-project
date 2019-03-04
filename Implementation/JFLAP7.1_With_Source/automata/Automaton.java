@@ -958,29 +958,29 @@ public class Automaton implements Serializable, Cloneable {
 	protected State initialState = null;
 
 	/** The list of transitions in this automaton. */
-	protected Set<Object> transitions;
+	public Set<Object> transitions;
 
 	/**
 	 * A mapping from states to a list holding transitions from those states.
 	 */
-	private HashMap<State, LinkedList<Transition>> transitionFromStateMap = new HashMap<State, LinkedList<Transition>>();
+	public HashMap<State, LinkedList<Transition>> transitionFromStateMap = new HashMap<State, LinkedList<Transition>>();
 
 	/**
 	 * A mapping from state to a list holding transitions to those states.
 	 */
-	private HashMap<State, LinkedList<Transition>> transitionToStateMap = new HashMap<State, LinkedList<Transition>>();
+	public HashMap<State, LinkedList<Transition>> transitionToStateMap = new HashMap<State, LinkedList<Transition>>();
 
 	/**
 	 * A mapping from states to an array holding transitions from a state. This
 	 * is a sort of cashing.
 	 */
-	private HashMap<State, Transition[]> transitionArrayFromStateMap = new HashMap<State, Transition[]>();
+	public HashMap<State, Transition[]> transitionArrayFromStateMap = new HashMap<State, Transition[]>();
 
 	/**
 	 * A mapping from states to an array holding transitions from a state. This
 	 * is a sort of cashing.
 	 */
-	private HashMap<State, Transition[]> transitionArrayToStateMap = new HashMap<State, Transition[]>();
+	public HashMap<State, Transition[]> transitionArrayToStateMap = new HashMap<State, Transition[]>();
 
 //	/**
 //	 * A mapping from the name of an automaton to the automaton. Used for

@@ -42,6 +42,7 @@
 	\thispagestyle{empty}
 	\vfill
 	\begin{abstract}
+		\textcolor{red}{I need a new abstract!}
 	\end{abstract}
 	\thispagestyle{empty}
 	\clearpage
@@ -86,11 +87,14 @@
 		\end{itemize}
 	\end{multicols}
 	
+\textcolor{red}{
 	\subsubsection{Implementation}
 	\paragraph{A Turing Machine Simulator}\cite{Curtis1965}
 	\subsubsection{Other Turing Machines (informally defined)}
 	\paragraph{U-Machines}
 	\paragraph{C-Machines}
+}
+
 	\subsection{O-machines}
 	There exists a less known idea for an abstract machine by Turing, which was introduced in his PhD thesis - the \textit{o-machine}. Similarly to a-machines\footnote{The Turing machines that are familiar to the greatest number of people in the field.}, o-machines can be described through tables. The main difference between o-machines and other abstract machines, such as a-machines, is the black box element, called an 'oracle'. The latter's definition in is not expanded on in Turing's paper, beyond being depicted as \textit{"some unspecified means of solving number theoretic problems"}\cite{Turing1938}. No details on the internal configuration of an instance of such a machine are available. The o-machine is equipped with one or more oracles, each of which can perform a primitive operation that returns the values of a non-Turing-machine-computable\footnote{In other words - number theoretic} function\cite{Copeland1998} in the form \[ p:\mathbb{N}\mapsto \mathbf{2} \]
 	
@@ -117,25 +121,27 @@
 	\end{multicols}
 	
 	
-	
+\textcolor{red}{
 	\subparagraph{First mention}
-	
-	
 	\subparagraph{Turing's O-machines, Searle, Penrose and the Brain}\cite{Copeland1998}
 	\subparagraph{Olympia and other O-machines}\cite{Klein2015}
 	\subsection{Beyond Turing Machines?}
 	\paragraph{Computation Beyond Turing Machines}\cite{Wegner19933}
+}
+
 	\subsection{Interaction}
 	
 	Machines established solely on the basis of computable functions fall flat in modelling present-day computing, considering its trademarks are \textit{interaction} and \textit{reactivity}\cite{Goldin2004}. Having in mind the notion that interactive systems are more expressive than algorithmic ones\cite{Wegner1997}, we can look into evolving the traditional models into something more applicable to the current technological circumstances. 
 	
 	The TM component of the project can be modelled like a Persistent Turing Machine, with a work and output tapes\footnote{Possibly an input tape as well, if determined as needed.}.
 	
+	\textcolor{red}{some more stuff here
 	\paragraph{Elements of Interaction}\hfil\\
 	Talking about concurrent computation\cite{Milner1993}
 	\paragraph{Turing machines, transition systems and interactions}\hfill\\
 	Persistent Turing Machines - for the o-machines or the main machine or both?\cite{Goldin2004}
 	\paragraph{The Turing machine model extended with interaction}\cite{Erkens}
+	}
 	
 	\subsection{Social Machines}
 	The concept of a social machine revolves around the idea of collaborative problem solving \cite{Luczak-Rosch2015}. As defined by  Tim Berners-Lee, they are \textit{"processes in which the people do the creative work and the machine does the administration"}\cite{berners2001weaving}.
@@ -165,11 +171,13 @@
 		\label{fig:sm-tree}
 	\end{SCfigure}
 	
+	\textcolor{red}{
 	\paragraph{The emerging web of social machines}
 	Studies the relationships between SMs\cite{Silvio2010}
 	\paragraph{From the semantic web to social machines: a research challenge for AI on the World Wide Web}
 	Connects the semantic web with SMs and provides future goals\cite{Hendler2009}
-	
+	}
+
 	\subsubsection{Social Machine and Computation Examples}
 	Given a lack of evaluation data found during the literature review, a few real-world social machines have been identified with the possibility of simulation by reducing the domain and action set of the oracles and machine respectively to a few representative outcomes (both positive and negative):
 	\paragraph{Wikipedia}
@@ -262,7 +270,22 @@
 	The majority of open source projects available are implemented in Java and have user interfaces built with the Swing toolkit. After inspecting the source code contents and considering factors such as support, functionality, public feedback and quality of documentation, I strongly decided in favour of JFLAP \cite{rodger2006jflap}, as it excelled in all the aforementioned requirements in comparison to the rest of the projects. In fact, its diverse functionality and multitude of classes for any sub-entity that might be needed will enable easier and cleaner implementation of the social machine model.
 	
 	\subsection{Functionality Requirements}
-	\textcolor{red}{High level specification}
+	\textcolor{red}{High level specification
+		\begin{itemize}
+			\item Environment for creation of Omega Machines
+			\begin{itemize}
+				\item Place and move around TMs and OMs
+				\item Connections
+				\item Renaming
+			\end{itemize}
+			\item Environment for creation of o-machines
+			\begin{itemize}
+				\item Assign oracles
+				\item determine transformation functions
+			\end{itemize}
+			\item Ability to run a simulation
+		\end{itemize}
+	}
 	
 	\newpage
 	\section{Design}
@@ -452,6 +475,8 @@
 		\label{fig:gantt}
 	\end{sidewaysfigure}
 
+	\subsection{Tasks Breakdown}
+	\includegraphics[height=\linewidth, angle=90]{tasks}
 	
 	\subsection{Original Project Brief}
 	\includegraphics[width=\linewidth]{brief}
