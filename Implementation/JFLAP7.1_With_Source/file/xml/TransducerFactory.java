@@ -33,6 +33,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import gui.action.OpenAction;
+import social.OmegaTransducer;
+import social.PTMTransducer;
 
 import org.w3c.dom.Element;
 
@@ -205,6 +207,10 @@ public class TransducerFactory {
         add(null, automata.mealy.MooreMachine.class, new MooreTransducer());
         add(null, gui.pumping.RegPumpingLemmaChooser.class, new RegPumpingLemmaTransducer());
         add(null, gui.pumping.CFPumpingLemmaChooser.class, new CFPumpingLemmaTransducer());
+        
+        add(null, social.PersistentTuringMachine.class, new PTMTransducer());
+        add(null, social.OmegaMachine.class, new OmegaTransducer());
+
 	}
 
 	/** Mapping of DOM "type" tags to a corresponding transducer class. */

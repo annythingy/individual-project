@@ -912,8 +912,6 @@ public class ArrowTool extends Tool {
 				Environment envir = rootFrame.getEnvironment();
 				envir.add(editor, "Edit PTM", new CriticalTag() {
 				});
-
-				if(envir == null || rootFrame == null) System.out.println("whupsie");
 				
 				envir.setActive(editor);
 			}
