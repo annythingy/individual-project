@@ -38,6 +38,12 @@ public class OmegaMachine extends Automaton implements Serializable {
 		return om;
 	}
 	
+	public OracleMachine createOracleMachineWithID(Point point, Integer id) {
+		OracleMachine om = new OracleMachine(id, point);
+		addOracleMachine(om);
+		return om;
+	}
+	
 	public void addOracleMachine(OracleMachine om) {
 		om.setTM(coreTM);
 		oracleMs.add(om);
