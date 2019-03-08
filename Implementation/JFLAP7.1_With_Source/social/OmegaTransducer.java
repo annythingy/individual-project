@@ -175,7 +175,7 @@ public class OmegaTransducer extends AbstractTransducer {
 				hasLocation = false;
 			} catch (NumberFormatException e) {
 				throw new DataException("The x coordinate "
-						+ e2t.get("x")
+						+ ((Element) e2t).getAttribute("x")
 						+ " could not be read for state " + id + ".");
 			}
 			try {
@@ -184,7 +184,7 @@ public class OmegaTransducer extends AbstractTransducer {
 				hasLocation = false;
 			} catch (NumberFormatException e) {
 				throw new DataException("The y coordinate "
-						+ e2t.get("y") + " could not be read for state " + id + ".");
+						+ ((Element) e2t).getAttribute("y") + " could not be read for state " + id + ".");
 			}
 			p.setLocation(x, y);
 			
@@ -218,8 +218,8 @@ public class OmegaTransducer extends AbstractTransducer {
 	private Element createPTMElement(Document doc, PersistentTuringMachine ptm, OmegaMachine container) {
 		Element be = createElement(doc, "ptmCore", null, null);
 		be.setAttribute("name", "" + ptm.getName());
-		be.appendChild(createElement(doc, "x", null, "" + ptm.getPoint().getX()));
-		be.appendChild(createElement(doc, "y", null, "" + ptm.getPoint().getY()));
+		be.setAttribute("x", "" + ptm.getPoint().x);
+		be.setAttribute("y", "" + ptm.getPoint().y);
 		return be;
 	}
 

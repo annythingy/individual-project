@@ -54,8 +54,6 @@ public class OmegaDrawer extends SelectionDrawer {
 		g.setColor(Color.black);
 
 		if (((OmegaMachine) automaton).getCore() != null){
-			setTMX(automaton.getCore().getPoint().x);
-			setTMY(automaton.getCore().getPoint().y);
 			drawTuringMachine(g2);
 		}
 		else {
@@ -69,8 +67,8 @@ public class OmegaDrawer extends SelectionDrawer {
 	}
 
 	public void drawTuringMachine(Graphics g2) {
-		if (tmX == 0 && tmY == 0)
-			return;
+		if (tmX == 0) setTMX(automaton.getCore().getPoint().x);
+		if (tmY == 0) setTMY(automaton.getCore().getPoint().y);
 		Graphics2D g = (Graphics2D) g2.create();
 
 		int width = 80;
