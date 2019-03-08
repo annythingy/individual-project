@@ -43,7 +43,16 @@ public class PersistentTuringMachine extends TuringMachine {
 	}
 	
 	public String getName(){
+		if(name == null) return "PTM CORE";
 		return name;
+	}
+	
+	public void setPoint(Point p){
+		this.point = p;
+	}
+	
+	public Point getPoint(){
+		return point;
 	}
 
 }

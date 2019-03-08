@@ -32,7 +32,7 @@ public class OmegaTransducer extends AbstractTransducer {
 	@Override
 	public Serializable fromDOM(Document document) {
 		machineMap.clear();
-		OmegaMachine a = createEmptyMachine(document);
+		//OmegaMachine a = createEmptyMachine(document);
 
         Node parent = document.getDocumentElement().getElementsByTagName("machine").item(0);
         if(parent == null) parent = document.getDocumentElement();
@@ -56,23 +56,64 @@ public class OmegaTransducer extends AbstractTransducer {
 		Set<Object> locatedOMs = new java.util.HashSet<>();
 		OmegaMachine root = createEmptyMachine(doc);
         if(parent == null) return root;
-        
-        //TODO readPTM();
+
+        readPTM(parent, root);
         readOMs(parent, root, locatedOMs, doc);
         //TODO readConnections();
         machineMap.put(parent.getNodeName(), root);
 		return root;
 	}
 	
+	private void readPTM(Node node, OmegaMachine omParent){
+		NodeList allNodes = node.getChildNodes();
+				
+		for (int k = 0; k < allNodes.getLength(); k++){
+			if(allNodes.item(k).getNodeName().equals("ptmCore")){
+				createPTM(allNodes.item(k), omParent);
+			}
+		}
+	}
+	
+	private void createPTM(Node node, OmegaMachine omParent){
+		System.out.println("Everything sucks and " + node);
+		Map<String, String> e2t = elementsToText(node);
+		
+		java.awt.Point p = new java.awt.Point();
+		boolean hasLocation = true;
+		double x = 0, y = 0;
+		try {
+			x = Double.parseDouble(e2t.get("x").toString());
+		} catch (NullPointerException e) {
+			hasLocation = false;
+		} catch (NumberFormatException e) {
+			throw new DataException("The x coordinate "
+					+ e2t.get("x") + " could not be read for the core PTM.");
+		}
+		try {
+			y = Double.parseDouble(e2t.get("y").toString());
+		} catch (NullPointerException e) {
+			hasLocation = false;
+		} catch (NumberFormatException e) {
+			throw new DataException("The y coordinate "
+					+ e2t.get("y") + " could not be read for the core PTM");
+		}
+		p.setLocation(x, y);
+		
+		PersistentTuringMachine ptm = new PersistentTuringMachine(p, omParent);
+		String name = ((Element) node).getAttribute("name");
+		ptm.setName(name);
+		omParent.setCore(ptm);
+	}
+	
 	private Map<Integer, OracleMachine> readOMs(Node node, OmegaMachine machine, Set<Object> locatedOMs, Document doc) {
-		Map<Integer, OracleMachine> i2s = new java.util.HashMap<Integer, OracleMachine>();
-        if(node == null) return i2s;
+		Map<Integer, OracleMachine> i2o = new java.util.HashMap<Integer, OracleMachine>();
+        if(node == null) return i2o;
 		NodeList allNodes = node.getChildNodes();
 		ArrayList<Node> omNodes = new ArrayList<Node>();
 		for (int k = 0; k < allNodes.getLength(); k++) {
 			Node thisNode = allNodes.item(k);
 			String thisName = thisNode.getNodeName();
-			if (!allNodes.item(k).getNodeName().equals("omSet"))
+			if (!thisName.equals("omSet"))
 				continue;
 			
 			NodeList thisOmSet = thisNode.getChildNodes();
@@ -95,13 +136,12 @@ public class OmegaTransducer extends AbstractTransducer {
 				return ((Comparable) o1).compareTo(o2);
 			}
 		});
-		createOracleMachines(omNodes, i2sn, machine, locatedOMs, i2s, doc);
-		return i2s;
+		createOracleMachines(omNodes, i2sn, machine, locatedOMs, i2o, doc);
+		return i2o;
 	}
-
+	
 	protected void createOracleMachines(ArrayList<Node> omNodes, Map<Integer, Node> i2sn,
 		OmegaMachine machine, Set<Object> locatedOMs, Map<Integer, OracleMachine> i2s, Document doc) {
-
 		
 		for (int i = 0; i < omNodes.size(); i++) {
 			Node omNode = (Node) omNodes.get(i);
@@ -121,10 +161,8 @@ public class OmegaTransducer extends AbstractTransducer {
 
 		Iterator<Integer> it = i2sn.keySet().iterator();		
 		while (it.hasNext()) {
-
 			Integer id = (Integer) it.next();
 			Element omNode = (Element) i2sn.get(id);
-
 			Map<String, String> e2t = elementsToText(omNode);
 
 			java.awt.Point p = new java.awt.Point();
@@ -140,21 +178,17 @@ public class OmegaTransducer extends AbstractTransducer {
 						+ e2t.get("x")
 						+ " could not be read for state " + id + ".");
 			}
-
 			try {
 				y = Double.parseDouble(e2t.get("y").toString());
 			} catch (NullPointerException e) {
 				hasLocation = false;
 			} catch (NumberFormatException e) {
 				throw new DataException("The y coordinate "
-						+ e2t.get("y")
-						+ " could not be read for state " + id + ".");
+						+ e2t.get("y") + " could not be read for state " + id + ".");
 			}
 			p.setLocation(x, y);
 			
-			OracleMachine om = null;
-
-			om = machine.createOracleMachineWithID(p, id.intValue());
+			OracleMachine om = machine.createOracleMachineWithID(p, id.intValue());
             
 			if (hasLocation && locatedOMs != null)
 				locatedOMs.add(om);
@@ -176,7 +210,6 @@ public class OmegaTransducer extends AbstractTransducer {
 	private Element writeMachineContents(Document doc, OmegaMachine machine, Element se) {
 		PersistentTuringMachine ptm = machine.getCore();
 		Set<OracleMachine> omSet = machine.getOracleMachines();
-		se.appendChild(createComment(doc, "TODO PTMS!!!"));
 		se.appendChild(createPTMElement(doc, ptm, machine));
 		se.appendChild(createOMSetElement(doc, omSet, machine));
 		return se;
@@ -185,6 +218,8 @@ public class OmegaTransducer extends AbstractTransducer {
 	private Element createPTMElement(Document doc, PersistentTuringMachine ptm, OmegaMachine container) {
 		Element be = createElement(doc, "ptmCore", null, null);
 		be.setAttribute("name", "" + ptm.getName());
+		be.appendChild(createElement(doc, "x", null, "" + ptm.getPoint().getX()));
+		be.appendChild(createElement(doc, "y", null, "" + ptm.getPoint().getY()));
 		return be;
 	}
 

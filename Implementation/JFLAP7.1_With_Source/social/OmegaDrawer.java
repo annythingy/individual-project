@@ -53,8 +53,11 @@ public class OmegaDrawer extends SelectionDrawer {
 		g.setFont(g.getFont().deriveFont(12.0f));
 		g.setColor(Color.black);
 
-		if (((OmegaMachine) automaton).getCore() != null)
+		if (((OmegaMachine) automaton).getCore() != null){
+			setTMX(automaton.getCore().getPoint().x);
+			setTMY(automaton.getCore().getPoint().y);
 			drawTuringMachine(g2);
+		}
 		else {
 			setTMX(0);
 			setTMY(0);

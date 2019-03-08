@@ -8,5 +8,5 @@ public class PTMTransducer extends TMTransducer {
 	public String getType() {
 		return "pturing";
 	}
-	
+
 }

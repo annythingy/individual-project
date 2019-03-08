@@ -128,8 +128,9 @@ public class OmegaMachine extends Automaton implements Serializable {
         tm.setEnvironmentFrame(this.getEnvironmentFrame());
 
         PersistentTuringMachine block = new PersistentTuringMachine(tm);
-
+        block.setPoint(point);
 		block.setName(lastFile.getName().substring(0, lastFile.getName().length() - 4));
+		block.setFilePath(lastFile.getPath());
 		
 		System.out.println(tm);
 		

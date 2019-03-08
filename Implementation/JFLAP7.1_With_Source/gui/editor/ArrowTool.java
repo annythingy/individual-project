@@ -899,8 +899,7 @@ public class ArrowTool extends Tool {
             if (getDrawer().getAutomaton().getEnvironmentFrame() != null)
                 ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
             
-            if(item == viewTM) return; //TODO
-            else if (item == editTM) { 
+            if (item == editTM) { 
             	OmegaMachine parent = ptm.getOmegaParent();
             	
             	EditPTMPane editor = new EditPTMPane(ptm);
