@@ -676,7 +676,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	 * @param tempAuto
 	 * @return
 	 */
-	protected Element createAutomatonElement(Document document, Automaton auto,
+	public Element createAutomatonElement(Document document, Automaton auto,
 			String name) {
 		Element se = document.getDocumentElement();
 		Element be = createElement(document, name, null, null);

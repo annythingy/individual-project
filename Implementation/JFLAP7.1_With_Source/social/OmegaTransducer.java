@@ -18,7 +18,9 @@ import automata.mealy.MooreMachine;
 import automata.turing.TuringMachine;
 import file.DataException;
 import file.xml.AbstractTransducer;
+import file.xml.AutomatonTransducer;
 import file.xml.MooreTransducer;
+import file.xml.TMTransducer;
 
 public class OmegaTransducer extends AbstractTransducer {
 
@@ -82,20 +84,20 @@ public class OmegaTransducer extends AbstractTransducer {
 		boolean hasLocation = true;
 		double x = 0, y = 0;
 		try {
-			x = Double.parseDouble(e2t.get("x").toString());
+			x = Double.parseDouble(((Element) node).getAttribute("x").toString());
 		} catch (NullPointerException e) {
 			hasLocation = false;
 		} catch (NumberFormatException e) {
 			throw new DataException("The x coordinate "
-					+ e2t.get("x") + " could not be read for the core PTM.");
+					+ ((Element) e2t).getAttribute("x") + " could not be read for the core PTM.");
 		}
 		try {
-			y = Double.parseDouble(e2t.get("y").toString());
+			y = Double.parseDouble(((Element) node).getAttribute("y").toString());
 		} catch (NullPointerException e) {
 			hasLocation = false;
 		} catch (NumberFormatException e) {
 			throw new DataException("The y coordinate "
-					+ e2t.get("y") + " could not be read for the core PTM");
+					+ ((Element) e2t).getAttribute("y") + " could not be read for the core PTM");
 		}
 		p.setLocation(x, y);
 		
@@ -175,7 +177,7 @@ public class OmegaTransducer extends AbstractTransducer {
 				hasLocation = false;
 			} catch (NumberFormatException e) {
 				throw new DataException("The x coordinate "
-						+ ((Element) e2t).getAttribute("x")
+						+ e2t.get("x")
 						+ " could not be read for state " + id + ".");
 			}
 			try {
@@ -184,7 +186,7 @@ public class OmegaTransducer extends AbstractTransducer {
 				hasLocation = false;
 			} catch (NumberFormatException e) {
 				throw new DataException("The y coordinate "
-						+ ((Element) e2t).getAttribute("y") + " could not be read for state " + id + ".");
+						+ e2t.get("y") + " could not be read for state " + id + ".");
 			}
 			p.setLocation(x, y);
 			
@@ -216,11 +218,16 @@ public class OmegaTransducer extends AbstractTransducer {
 	}
 
 	private Element createPTMElement(Document doc, PersistentTuringMachine ptm, OmegaMachine container) {
-		Element be = createElement(doc, "ptmCore", null, null);
-		be.setAttribute("name", "" + ptm.getName());
-		be.setAttribute("x", "" + ptm.getPoint().x);
-		be.setAttribute("y", "" + ptm.getPoint().y);
-		return be;
+		TMTransducer autoTrans = new TMTransducer();
+		Element automatonElement = autoTrans.createAutomatonElement(doc, ptm, "ptmCore");
+		automatonElement.setAttribute("x", String.valueOf(ptm.getPoint().x));
+		automatonElement.setAttribute("y", String.valueOf(ptm.getPoint().y));
+		return automatonElement;
+		//Element be = createElement(doc, "ptmCore", null, null);
+		//be.setAttribute("name", "" + ptm.getName());
+		//be.setAttribute("x", "" + ptm.getPoint().x);
+		//be.setAttribute("y", "" + ptm.getPoint().y);
+		//return be;
 	}
 
 	private Element createOMSetElement(Document doc, Set<OracleMachine> omSet, OmegaMachine container) {

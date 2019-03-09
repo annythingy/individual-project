@@ -3,7 +3,7 @@
 \usepackage{hyperref}
 \usepackage{multicol}
 \usepackage{multirow}
-\usepackage[table,xcdraw]{xcolor}
+\usepackage[usenames,dvipsnames,svgnames,table,xcdraw]{xcolor}
 \usepackage[rightcaption]{sidecap}
 \usepackage{enumitem}
 \usepackage{tikz}
@@ -12,6 +12,8 @@
 \usepackage{pgfgantt}
 \usepackage{rotating}
 \usepackage{amssymb}
+\usepackage{listings}
+\usepackage{color}
 \usepackage[normalem]{ulem}
 \graphicspath{ {./figures/} }
 \useunder{\uline}{\ul}{}
@@ -477,6 +479,40 @@
 
 	\subsection{Tasks Breakdown}
 	\includegraphics[height=\linewidth, angle=90]{tasks}
+	
+	\subsection{XML}
+	A sample Omega machine file in XML format.
+	
+	\lstset{
+		language=xml,
+		tabsize=3,
+		%frame=lines,
+		caption=Test,
+		label=code:sample,
+		frame=shadowbox,
+		rulesepcolor=\color{gray},
+		xleftmargin=20pt,
+		framexleftmargin=15pt,
+		keywordstyle=\color{blue}\bf,
+		commentstyle=\color{gray}\it,
+		stringstyle=\color{OliveGreen},
+		numbers=left,
+		numberstyle=\tiny,
+		numbersep=5pt,
+		breaklines=true,
+		showstringspaces=false,
+		basicstyle=\footnotesize,
+		keywords = {
+			type,machine,ptmCore,state,transition,
+			omSet,oracleMachine, structure, x, y,
+			initial, final,from,to,read,write,move
+		},
+		emph={
+			id,name
+		},emphstyle={\color{red}}
+	}
+
+	\lstinputlisting{figures/OmegaXML.xml}
 	
 	\subsection{Original Project Brief}
 	\includegraphics[width=\linewidth]{brief}

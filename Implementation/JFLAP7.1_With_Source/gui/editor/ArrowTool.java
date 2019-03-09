@@ -27,6 +27,7 @@ import gui.environment.tag.CriticalTag;
 import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
 import gui.viewer.CurvedArrow;
+import social.EditOraclePane;
 import social.EditPTMPane;
 import social.OmegaDrawer;
 import social.OracleMachine;
@@ -924,12 +925,15 @@ public class ArrowTool extends Tool {
 		private static final long serialVersionUID = 1L;
 
 		private OracleMachine om;
-		private JMenuItem itemRename;
+		private JMenuItem itemRename, itemEdit;
 		
 		public OracleMachineMenu() {
 			itemRename = new JMenuItem("Rename machine");
 			itemRename.addActionListener(this);
 			this.add(itemRename);
+			itemEdit = new JMenuItem("Edit machine");
+			itemEdit.addActionListener(this);
+			this.add(itemEdit);
 		}
 
 		public void show(OracleMachine om, Component comp, Point at) {
@@ -954,6 +958,20 @@ public class ArrowTool extends Tool {
 				if (newName.equals(""))
 					newName = null;
 				om.setName(newName);
+            } else if (item == itemEdit) {
+            	OmegaMachine parent = om.getOmegaParent();
+            	
+            	EditOraclePane editor = new EditOraclePane(om);
+            	
+				EnvironmentFrame rootFrame = parent.getEnvironmentFrame();
+				
+
+				editor.setOM(om);
+				Environment envir = rootFrame.getEnvironment();
+				envir.add(editor, "Edit OM", new CriticalTag() {
+				});
+				
+				envir.setActive(editor);
             }
             
 			getView().repaint();

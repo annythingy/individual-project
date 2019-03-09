@@ -15,6 +15,7 @@ public class OracleMachine extends Automaton {
 	Point point;
 	PersistentTuringMachine tmCore;
 	
+	OmegaMachine omegaParent;
 	String name;
 	
 	String defaultName = "Someone";
@@ -25,13 +26,14 @@ public class OracleMachine extends Automaton {
 
 	boolean selected;
 
-	public OracleMachine(Integer id, Point point) {
+	public OracleMachine(Integer id, Point point, OmegaMachine omegaParent) {
 		this.id = id;
 		this.point = point;
 		this.tmCore = null;
 		this.name = defaultName;
 		this.oracles = new HashSet<Oracle>(1);
 		this.neighbours = new HashSet<OracleMachine>();
+		this.omegaParent = omegaParent;
 	}
 
 	public Integer getID() {
@@ -93,6 +95,10 @@ public class OracleMachine extends Automaton {
 
 	public boolean isAtomic() {
 		return oracles.size() == 1;
+	}
+
+	public OmegaMachine getOmegaParent() {
+		return omegaParent;
 	}
 
 }

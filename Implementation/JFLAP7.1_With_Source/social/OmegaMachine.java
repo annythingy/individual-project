@@ -33,13 +33,13 @@ public class OmegaMachine extends Automaton implements Serializable {
 		int i = 0;
 		while (getOracleMachineWithID(i) != null)
 			i++;
-		OracleMachine om = new OracleMachine(i, point);
+		OracleMachine om = new OracleMachine(i, point, this);
 		addOracleMachine(om);
 		return om;
 	}
 	
 	public OracleMachine createOracleMachineWithID(Point point, Integer id) {
-		OracleMachine om = new OracleMachine(id, point);
+		OracleMachine om = new OracleMachine(id, point, this);
 		addOracleMachine(om);
 		return om;
 	}
