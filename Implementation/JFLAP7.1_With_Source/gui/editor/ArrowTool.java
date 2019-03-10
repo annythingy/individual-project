@@ -429,7 +429,8 @@ public class ArrowTool extends Tool {
 			if(oDrawer.isTMSelected()){
 				int x = oDrawer.getTMX() + p.x - initialPointClick.x;
 				int y = oDrawer.getTMY() + p.y - initialPointClick.y;
-
+				
+				((OmegaMachine) getView().getDrawer().getAutomaton()).getCore().setPoint(new Point(x,y));
 				oDrawer.setTMX(x);
 				oDrawer.setTMY(y);
 				oDrawer.drawAutomaton(oDrawer.getGraphics());

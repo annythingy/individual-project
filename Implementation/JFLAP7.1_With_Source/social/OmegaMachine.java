@@ -47,7 +47,6 @@ public class OmegaMachine extends Automaton implements Serializable {
 	public void addOracleMachine(OracleMachine om) {
 		om.setTM(coreTM);
 		oracleMs.add(om);
-		System.out.println(oracleMs);
 	}
 	
 	public void removeOracleMachine(OracleMachine om){
