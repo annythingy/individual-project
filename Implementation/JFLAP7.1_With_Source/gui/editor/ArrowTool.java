@@ -24,6 +24,7 @@ import gui.environment.AutomatonEnvironment;
 import gui.environment.Environment;
 import gui.environment.EnvironmentFrame;
 import gui.environment.tag.CriticalTag;
+import gui.grammar.GrammarInputPane;
 import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
 import gui.viewer.CurvedArrow;
@@ -31,6 +32,7 @@ import social.EditOraclePane;
 import social.EditPTMPane;
 import social.OmegaDrawer;
 import social.OracleMachine;
+import social.OracleMachinePane;
 import social.PersistentTuringMachine;
 
 import java.awt.Color;
@@ -73,7 +75,8 @@ import automata.turing.TMState;
 import automata.turing.TuringMachine;
 import automata.turing.TuringMachineBuildingBlocks;
 import debug.EDebug;
-
+import grammar.ConvertedUnrestrictedGrammar;
+import grammar.Grammar;
 import social.OmegaMachine;
 
 /**
@@ -883,11 +886,8 @@ public class ArrowTool extends Tool {
 		private JMenuItem viewTM, editTM;	
 		
 		public OmegaPTMenu() {
-			viewTM = new JMenuItem("View Machine");
 			editTM = new JMenuItem("Edit Machine");
-			viewTM.addActionListener(this);
 			editTM.addActionListener(this);
-			this.add(viewTM);
 			this.add(editTM);
 		}
 
@@ -966,13 +966,17 @@ public class ArrowTool extends Tool {
             	
 				EnvironmentFrame rootFrame = parent.getEnvironmentFrame();
 				
-
+				
+				OracleMachinePane input = new OracleMachinePane(om);
+				
 				editor.setOM(om);
 				Environment envir = rootFrame.getEnvironment();
-				envir.add(editor, "Edit OM", new CriticalTag() {
+				envir.add(input, "Edit OM", new CriticalTag() {
 				});
 				
-				envir.setActive(editor);
+				
+				
+				envir.setActive(input);
             }
             
 			getView().repaint();

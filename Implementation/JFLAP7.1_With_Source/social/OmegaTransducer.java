@@ -25,7 +25,7 @@ import file.xml.TMTransducer;
 public class OmegaTransducer extends AbstractTransducer {
 
 	private Map<String, Automaton> machineMap = new java.util.HashMap<>();
-	TMTransducer autoTrans = new TMTransducer();
+	PTMTransducer autoTrans = new PTMTransducer();
 	
 	@Override
 	public String getType() {
