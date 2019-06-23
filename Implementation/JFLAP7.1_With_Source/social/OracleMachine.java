@@ -23,6 +23,7 @@ public class OracleMachine extends Automaton {
 	Set<OracleMachine> neighbours;
 
 	Set<Oracle> oracles;
+	Oracle oracle;
 
 	boolean selected;
 
@@ -31,7 +32,9 @@ public class OracleMachine extends Automaton {
 		this.point = point;
 		this.tmCore = null;
 		this.name = defaultName;
+		oracle = new Oracle(this);
 		this.oracles = new HashSet<Oracle>(1);
+		addOracle(oracle);
 		this.neighbours = new HashSet<OracleMachine>();
 		this.omegaParent = omegaParent;
 	}

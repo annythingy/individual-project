@@ -67,8 +67,8 @@ public class OmegaDrawer extends SelectionDrawer {
 	}
 
 	public void drawTuringMachine(Graphics g2) {
-		if (tmX == 0) setTMX(automaton.getCore().getPoint().x);
-		if (tmY == 0) setTMY(automaton.getCore().getPoint().y);
+		if (tmX == 0) setTMX(100);//setTMX(automaton.getCore().getPoint().x);
+		if (tmY == 0) setTMY(100);//setTMY(automaton.getCore().getPoint().y);
 		Graphics2D g = (Graphics2D) g2.create();
 
 		int width = 80;
@@ -87,7 +87,7 @@ public class OmegaDrawer extends SelectionDrawer {
 		Point point = om.getPoint();
 		int radius = 30;
 
-		g.setColor(Color.lightGray);
+		g.setColor(Color.black);
 		g.setStroke(dotted);
 		if (tmX != 0 && tmY != 0)
 			g.drawLine(point.x, point.y, tmX, tmY);
@@ -95,15 +95,17 @@ public class OmegaDrawer extends SelectionDrawer {
 
 		if (om.isSelected())
 			g.setColor(HIGHLIGHT_COLOR);
-		g.fillOval(point.x - radius, point.y - radius, 2 * radius, 2 * radius);
+		g.fillRect(point.x - radius, point.y - radius, 2 * radius, 2 * radius);
 
 		g.setColor(Color.black);
 
 		int dx = ((int) g.getFontMetrics().getStringBounds(om.getName(), g).getWidth()) >> 1;
 		int dy = ((int) g.getFontMetrics().getAscent()) >> 1;
-
+		
+		g.setColor(Color.lightGray);
+		
 		g.drawString(om.getName(), point.x - dx, point.y + dy);
-		g.drawOval(point.x - radius, point.y - radius, 2 * radius, 2 * radius);
+		g.drawRect(point.x - radius, point.y - radius, 2 * radius, 2 * radius);
 
 	}
 

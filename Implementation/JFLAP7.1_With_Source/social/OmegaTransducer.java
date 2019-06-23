@@ -59,27 +59,26 @@ public class OmegaTransducer extends AbstractTransducer {
 		OmegaMachine root = createEmptyMachine(doc);
         if(parent == null) return root;
 
-        readPTM(parent, root);
+        readPTM(parent, root, doc);
         readOMs(parent, root, locatedOMs, doc);
         //TODO readConnections();
         machineMap.put(parent.getNodeName(), root);
 		return root;
 	}
 	
-	private void readPTM(Node node, OmegaMachine omParent){
+	private void readPTM(Node node, OmegaMachine omParent, Document doc){
 		
 		NodeList allNodes = node.getChildNodes();
 				
 		for (int k = 0; k < allNodes.getLength(); k++){
 			if(allNodes.item(k).getNodeName().equals("ptmCore")){
-				createPTM(allNodes.item(k), omParent);
+				createPTM(allNodes.item(k), omParent, doc);
 			}
 		}
 		
 	}
 	
-	private void createPTM(Node node, OmegaMachine omParent){
-		System.out.println("Everything sucks and " + node);
+	private void createPTM(Node node, OmegaMachine omParent, Document doc){
 		Map<String, String> e2t = elementsToText(node);
 		
 		java.awt.Point p = new java.awt.Point();
@@ -102,11 +101,13 @@ public class OmegaTransducer extends AbstractTransducer {
 					+ e2t.get("y") + " could not be read for the core PTM");
 		}
 		p.setLocation(x, y);
-		
-		PersistentTuringMachine ptm = new PersistentTuringMachine(p, omParent);
+
+		PersistentTuringMachine ptm = new PersistentTuringMachine((TuringMachine) autoTrans.readAutomaton(node, doc));
 		String name = ((Element) node).getAttribute("name");
 		ptm.setName(name);
 		omParent.setCore(ptm);
+		
+		
 	}
 	
 	private Map<Integer, OracleMachine> readOMs(Node node, OmegaMachine machine, Set<Object> locatedOMs, Document doc) {

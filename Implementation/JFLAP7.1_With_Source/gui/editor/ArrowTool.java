@@ -28,7 +28,6 @@ import gui.grammar.GrammarInputPane;
 import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
 import gui.viewer.CurvedArrow;
-import social.EditOraclePane;
 import social.EditPTMPane;
 import social.OmegaDrawer;
 import social.OracleMachine;
@@ -925,7 +924,7 @@ public class ArrowTool extends Tool {
 
 		private static final long serialVersionUID = 1L;
 
-		private OracleMachine om;
+		OracleMachine om;
 		private JMenuItem itemRename, itemEdit;
 		
 		public OracleMachineMenu() {
@@ -962,20 +961,13 @@ public class ArrowTool extends Tool {
             } else if (item == itemEdit) {
             	OmegaMachine parent = om.getOmegaParent();
             	
-            	EditOraclePane editor = new EditOraclePane(om);
-            	
 				EnvironmentFrame rootFrame = parent.getEnvironmentFrame();
 				
-				
 				OracleMachinePane input = new OracleMachinePane(om);
-				
-				editor.setOM(om);
+
 				Environment envir = rootFrame.getEnvironment();
 				envir.add(input, "Edit OM", new CriticalTag() {
 				});
-				
-				
-				
 				envir.setActive(input);
             }
             
