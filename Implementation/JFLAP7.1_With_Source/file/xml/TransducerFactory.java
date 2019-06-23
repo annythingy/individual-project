@@ -63,7 +63,11 @@ public class TransducerFactory {
 		NodeList typeNodes = elem.getElementsByTagName("type");
 		NodeList bbNodes = elem.getElementsByTagName("block");
 		NodeList multitapeNodes = elem.getElementsByTagName("tapes");
+		NodeList omegaNodes = elem.getElementsByTagName("machine");
 		//if we have a multitape Turing machine, automatically open as standard Turing machine
+		if (omegaNodes.getLength() >0) {
+			return instantiate(new OmegaTransducer()); 
+		}
 		if (multitapeNodes.getLength() >0) {
 			return instantiate(new TMTransducer()); 
 		}
