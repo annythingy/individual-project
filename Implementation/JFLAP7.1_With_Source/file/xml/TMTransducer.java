@@ -36,6 +36,7 @@ import automata.Transition;
 import automata.turing.TMTransition;
 import automata.turing.TuringMachine;
 import file.DataException;
+import social.PersistentTuringMachine;
 
 /**
  * This is the transducer for encoding and decoding
@@ -108,6 +109,7 @@ public class TMTransducer extends AutomatonTransducer {
 				Element elem = (Element) nodes.item(i);
 				// Get which tape this is for.
 				String tapeString = elem.getAttribute(TRANSITION_TAPE_NAME);
+
 				if (tapeString.length() == 0)
 					tapeString = "1"; // Default single tape.
 				int tape = 1;

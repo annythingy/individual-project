@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import automata.Automaton;
+import automata.turing.Tape;
 import automata.turing.TuringMachine;
 
 public class OracleMachine extends Automaton {
@@ -103,5 +104,35 @@ public class OracleMachine extends Automaton {
 	public OmegaMachine getOmegaParent() {
 		return omegaParent;
 	}
-
+	
+	/*
+	 * Begin an Oracle's execution based on the context of the surrounding OmegaMachine.
+	 */
+	public void execute(OmegaConfiguration config) {
+		// TODO: Allow different implementations of Oracle Machines
+		// If connected directly, respond
+		Tape tape = config.getTapes()[id+2]; // +2 to account for PTM state tapes
+		if(tape.readChar() == '1')
+			return;
+		
+		// Otherwise, check if neighbours have been connected to
+		for(OracleMachine o : neighbours) {
+			Tape itape = new Tape();
+			o.gossip(itape, config);
+			if(itape.readChar() == '1')
+				tape.writeChar('1');
+		}
+	}
+	
+	/*
+	 * Respond to a gossip request via an intermediary tape
+	 * using the existing context.
+	 */
+	public void gossip(Tape tape, OmegaConfiguration config) {
+		Tape otape = config.getTapes()[id+2]; // +2 to account for PTM state tapes
+		if(otape.readChar() == '1')
+			tape.writeChar('1');
+		else
+			tape.writeChar('0');
+	}
 }

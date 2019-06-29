@@ -50,7 +50,8 @@ public class SimulatorFactory {
             } else {
             		return new automata.turing.TMSimulator(automaton);
             }
-		}
+		} else if (automaton instanceof social.OmegaMachine)
+			return new social.OmegaSimulator(automaton);
 			
         /*
          * Check for Moore must take place before check for Mealy because Moore

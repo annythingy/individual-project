@@ -345,7 +345,7 @@ public class SimulateAction extends AutomatonAction {
 	}
 	
 	/**
-	 * Returns whether the current automaton can legally be simulated.  If not,
+	 * Returns whether the current automaFton can legally be simulated.  If not,
 	 * a dialog pops up.  Will true if <code>automaton</code> = <i>null</i>.
 	 * 
 	 * @param source

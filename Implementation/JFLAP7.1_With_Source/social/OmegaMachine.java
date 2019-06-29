@@ -11,6 +11,8 @@ import java.util.Set;
 import javax.swing.JButton;
 
 import automata.Automaton;
+import automata.State;
+import automata.Transition;
 import automata.turing.TuringMachine;
 import automata.turing.TuringMachineBuildingBlocks;
 import gui.action.OpenAction;
@@ -111,6 +113,21 @@ public class OmegaMachine extends Automaton implements Serializable {
 		return coreTM;
 	}
 	
+	@Override
+	public State getInitialState() {
+		return coreTM.getInitialState();
+	}
+	
+	@Override
+	public Transition[] getTransitionsFromState(State state) {
+		return coreTM.getTransitionsFromState(state);
+	}
+	
+	@Override
+	public boolean isFinalState(State state) {
+		return coreTM.isFinalState(state);
+	}
+	
 	private PersistentTuringMachine getAutomatonFromFile(Point point) {
 		if (OpenAction.dontOpen) {
 			return null;
@@ -135,5 +152,4 @@ public class OmegaMachine extends Automaton implements Serializable {
 		
 		return block;
 	}
-
 }
