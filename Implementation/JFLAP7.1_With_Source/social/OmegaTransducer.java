@@ -47,6 +47,8 @@ public class OmegaTransducer extends AbstractTransducer {
 		Document doc = newEmptyDocument();
 		Element se = doc.getDocumentElement();
 		se.appendChild(createMachineElement(doc, machine, "machine"));
+		Element tapesElement = createElement(doc, "tapes", null, "" + machine.tapes());
+		se.appendChild(tapesElement);
 		return doc;
 	}
 
@@ -61,7 +63,6 @@ public class OmegaTransducer extends AbstractTransducer {
 
         readPTM(parent, root, doc);
         readOMs(parent, root, locatedOMs, doc);
-        //TODO readConnections();
         machineMap.put(parent.getNodeName(), root);
 		return root;
 	}
@@ -105,6 +106,7 @@ public class OmegaTransducer extends AbstractTransducer {
 		PersistentTuringMachine ptm = new PersistentTuringMachine((TuringMachine) autoTrans.readAutomaton(node, doc));
 		String name = ((Element) node).getAttribute("name");
 		ptm.setName(name);
+		ptm.setPoint(p);
 		omParent.setCore(ptm);
 		
 		
@@ -115,16 +117,24 @@ public class OmegaTransducer extends AbstractTransducer {
         if(node == null) return i2o;
 		NodeList allNodes = node.getChildNodes();
 		ArrayList<Node> omNodes = new ArrayList<Node>();
+		ArrayList<Node> cNodes = new ArrayList<Node>();
 		for (int k = 0; k < allNodes.getLength(); k++) {
 			Node thisNode = allNodes.item(k);
 			String thisName = thisNode.getNodeName();
-			if (!thisName.equals("omSet"))
-				continue;
 			
-			NodeList thisOmSet = thisNode.getChildNodes();
-			for (int m = 0; m < thisOmSet.getLength(); m++) {
-				if (thisOmSet.item(m).getNodeName().equals("oracleMachine")) {
-					omNodes.add(thisOmSet.item(m));
+			if (thisName.equals("omSet")) {
+				NodeList thisOmSet = thisNode.getChildNodes();
+				for (int m = 0; m < thisOmSet.getLength(); m++) {
+					if (thisOmSet.item(m).getNodeName().equals("oracleMachine")) {
+						omNodes.add(thisOmSet.item(m));
+					}
+				}
+			} else if (thisName.equals("cSet")) {
+				NodeList thisCSet = thisNode.getChildNodes();
+				for (int m = 0; m < thisCSet.getLength(); m++) {
+					if (thisCSet.item(m).getNodeName().equals("connection")) {
+						cNodes.add(thisCSet.item(m));
+					}
 				}
 			}
 		}
@@ -142,6 +152,7 @@ public class OmegaTransducer extends AbstractTransducer {
 			}
 		});
 		createOracleMachines(omNodes, i2sn, machine, locatedOMs, i2o, doc);
+		createConnections(cNodes, machine);
 		return i2o;
 	}
 	
@@ -204,6 +215,28 @@ public class OmegaTransducer extends AbstractTransducer {
 		}
 	}
 	
+	protected void createConnections(ArrayList<Node> cNodes, OmegaMachine machine) {
+		for (int i = 0; i < cNodes.size(); i++) {
+			Node omNode = (Node) cNodes.get(i);
+			if (omNode.getNodeType() != Node.ELEMENT_NODE) continue;
+
+			String idAs = ((Element) omNode).getAttribute("omA");
+			String idBs = ((Element) omNode).getAttribute("omB");
+
+			if (idAs == null || idBs == null)
+				throw new DataException(
+						"Connection without Oracle ID attributes encountered!");
+			Integer omAid = Integer.valueOf(idAs);
+			Integer omBid = Integer.valueOf(idBs);
+			OracleMachine omA = machine.getOracleMachineWithID(omAid);
+			OracleMachine omB = machine.getOracleMachineWithID(omBid);
+
+			machine.addConnection(omA, omB);
+			omA.addNeighbour(omB);
+			omB.addNeighbour(omA);
+		}
+	}
+
 	private Node createMachineElement(Document doc, OmegaMachine machine, String name) {
 		Element se = doc.getDocumentElement();
 		Element be = createElement(doc, name, null, null);
@@ -215,8 +248,10 @@ public class OmegaTransducer extends AbstractTransducer {
 	private Element writeMachineContents(Document doc, OmegaMachine machine, Element se) {
 		PersistentTuringMachine ptm = machine.getCore();
 		Set<OracleMachine> omSet = machine.getOracleMachines();
+		Set<Connection> connectionSet = machine.getConnections();
 		se.appendChild(createPTMElement(doc, ptm, machine));
 		se.appendChild(createOMSetElement(doc, omSet, machine));
+		se.appendChild(createCSetElement(doc, connectionSet, machine));
 		return se;
 	}
 
@@ -237,6 +272,14 @@ public class OmegaTransducer extends AbstractTransducer {
 		return be;
 	}
 
+	private Element createCSetElement(Document doc, Set<Connection> cSet, OmegaMachine container) {
+		Element be = createElement(doc, "cSet", null, null);
+		for (Connection c : cSet) {
+			be.appendChild(createConnectionElement(doc, c, container));
+		}
+		return be;
+	}
+
 	protected Element createOracleMachineElement(Document doc, OracleMachine om, OmegaMachine container) {
 		Element se = createElement(doc, "oracleMachine", null, null);
 		se.setAttribute("id", "" + om.getID());
@@ -246,4 +289,10 @@ public class OmegaTransducer extends AbstractTransducer {
 		return se;
 	}
 
+	protected Element createConnectionElement(Document doc, Connection c, OmegaMachine container) {
+		Element se = createElement(doc, "connection", null, null);
+		se.setAttribute("omA", "" + c.omA.id);
+		se.setAttribute("omB", "" + c.omB.id);
+		return se;
+	}
 }

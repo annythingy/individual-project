@@ -152,4 +152,8 @@ public class OmegaMachine extends Automaton implements Serializable {
 		
 		return block;
 	}
+
+	public int tapes() {
+		return coreTM.tapes();
+	}
 }

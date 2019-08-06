@@ -25,6 +25,8 @@ import gui.editor.ArrowDisplayOnlyTool;
 import gui.environment.Environment;
 import gui.viewer.AutomatonPane;
 import gui.viewer.SelectionDrawer;
+import social.OmegaMachine;
+import social.OmegaSelectionDrawer;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -91,7 +93,11 @@ public class SimulatorPane extends JPanel {
 			boolean blockStep) {
 		this.setLayout(new BorderLayout());
 		// Set up the main display.
-		SelectionDrawer drawer = new SelectionDrawer(automaton);
+		SelectionDrawer drawer;
+		if(automaton instanceof OmegaMachine)
+			drawer = new OmegaSelectionDrawer((OmegaMachine) automaton);
+		else
+			drawer = new SelectionDrawer(automaton);
 		AutomatonPane display = new AutomatonPane(drawer, true);
 		// Add the listener to the display.
 		ArrowDisplayOnlyTool arrow = new ArrowDisplayOnlyTool(display, drawer);

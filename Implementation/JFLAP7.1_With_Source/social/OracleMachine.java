@@ -23,8 +23,8 @@ public class OracleMachine extends Automaton {
 
 	Set<OracleMachine> neighbours;
 
-	Set<Oracle> oracles;
 	Oracle oracle;
+	Tape internalState;
 
 	boolean selected;
 
@@ -33,11 +33,10 @@ public class OracleMachine extends Automaton {
 		this.point = point;
 		this.tmCore = null;
 		this.name = defaultName;
-		oracle = new Oracle(this);
-		this.oracles = new HashSet<Oracle>(1);
-		addOracle(oracle);
+		oracle = new RumourSpreadingOracle(this);
 		this.neighbours = new HashSet<OracleMachine>();
 		this.omegaParent = omegaParent;
+		this.internalState = new Tape();
 	}
 
 	public Integer getID() {
@@ -81,10 +80,6 @@ public class OracleMachine extends Automaton {
 		return tmCore;
 	}
 
-	public void addOracle(Oracle o) {
-		oracles.add(o);
-	}
-
 	public void addNeighbour(OracleMachine on) {
 		neighbours.add(on);
 	}
@@ -97,10 +92,6 @@ public class OracleMachine extends Automaton {
 		return neighbours;
 	}
 
-	public boolean isAtomic() {
-		return oracles.size() == 1;
-	}
-
 	public OmegaMachine getOmegaParent() {
 		return omegaParent;
 	}
@@ -109,19 +100,8 @@ public class OracleMachine extends Automaton {
 	 * Begin an Oracle's execution based on the context of the surrounding OmegaMachine.
 	 */
 	public void execute(OmegaConfiguration config) {
-		// TODO: Allow different implementations of Oracle Machines
-		// If connected directly, respond
-		Tape tape = config.getTapes()[id+2]; // +2 to account for PTM state tapes
-		if(tape.readChar() == '1')
-			return;
-		
-		// Otherwise, check if neighbours have been connected to
-		for(OracleMachine o : neighbours) {
-			Tape itape = new Tape();
-			o.gossip(itape, config);
-			if(itape.readChar() == '1')
-				tape.writeChar('1');
-		}
+		// Further Work: Allow runtime definition of Oracle Machines (not possible in Java)
+		oracle.execute(config);
 	}
 	
 	/*
@@ -129,10 +109,6 @@ public class OracleMachine extends Automaton {
 	 * using the existing context.
 	 */
 	public void gossip(Tape tape, OmegaConfiguration config) {
-		Tape otape = config.getTapes()[id+2]; // +2 to account for PTM state tapes
-		if(otape.readChar() == '1')
-			tape.writeChar('1');
-		else
-			tape.writeChar('0');
+		oracle.gossip(config, tape);
 	}
 }

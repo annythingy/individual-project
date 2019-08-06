@@ -14,10 +14,11 @@ import java.util.LinkedList;
 import java.util.Set;
 
 import automata.turing.TuringMachine;
+import gui.viewer.AutomatonDrawer;
 import gui.viewer.SelectionDrawer;
 import gui.viewer.StateDrawer;
 
-public class OmegaDrawer extends SelectionDrawer {
+public class OmegaDrawer extends AutomatonDrawer {
 
 	OmegaMachine automaton;
 	Graphics2D g;
@@ -39,9 +40,10 @@ public class OmegaDrawer extends SelectionDrawer {
 		this.g = (Graphics2D) g2.create();
 
 		Set<OracleMachine> oMachines = ((OmegaMachine) automaton).getOracleMachines();
+		Set<Connection> connections = ((OmegaMachine) automaton).getConnections();
 
-		for (OracleMachine o : oMachines) {
-			drawConnections(g, o);
+		for (Connection c : connections) {
+			drawConnections(g, c);
 		}
 		
 		for (OracleMachine o : oMachines) {
@@ -109,16 +111,12 @@ public class OmegaDrawer extends SelectionDrawer {
 
 	}
 
-	public void drawConnections(Graphics g, OracleMachine om) {
+	public void drawConnections(Graphics g, Connection c) {
 		java.awt.Graphics2D g2 = (java.awt.Graphics2D) g;
 		Stroke s = g2.getStroke();
 		g2.setStroke(STROKE);
 		g2.setColor(Color.lightGray);
-		for (OracleMachine on : om.getNeighbours()) {
-			if (on != null) {
-				g2.drawLine(om.getPoint().x, om.getPoint().y, on.getPoint().x, on.getPoint().y);
-			}
-		}
+		g2.drawLine(c.omA.getPoint().x, c.omA.getPoint().y, c.omB.getPoint().x, c.omB.getPoint().y);
 		g2.setStroke(s);
 
 	}

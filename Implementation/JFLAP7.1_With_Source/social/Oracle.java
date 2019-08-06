@@ -1,11 +1,11 @@
 package social;
 
-public class Oracle {
-	
-	OracleMachine parent;
-	
-	public Oracle(OracleMachine parent) {
-		this.parent = parent;
-	}
+import automata.turing.Tape;
 
+public abstract class Oracle {
+	protected OracleMachine parent;
+	protected Tape ioTape, internalTape;
+
+	public abstract void execute(OmegaConfiguration config);
+	public abstract void gossip(OmegaConfiguration config, Tape neighbourTape);
 }

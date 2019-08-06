@@ -63,6 +63,7 @@ public class ConnectionTool extends Tool {
 		if (first == null && ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint()) == null) return;
 		OracleMachine omFriend = ((OmegaDrawer) getDrawer()).oMachineAtPoint(event.getPoint());
 		first.addNeighbour(omFriend);
+		omFriend.addNeighbour(first);
 		((OmegaMachine) getDrawer().getAutomaton()).addConnection(first, omFriend);
 		first = null;
 		getView().repaint();
