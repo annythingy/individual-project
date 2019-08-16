@@ -1,0 +1,174 @@
+\begin{thebibliography}{10}
+
+\bibitem{Turing1936}
+A.~M. Turing, ``On computable numbers, with an application to the
+  entscheidungsproblem,'' {\em Proceedings of the London Mathematical Society},
+  vol.~s2-42, no.~1, pp.~230--265, 1936.
+
+\bibitem{Turing1969}
+A.~M. Turing, ``Intelligent machinery,'' in {\em Machine Intelligence}
+  (B.~Meltzer and D.~Michie, eds.), vol.~5, ch.~1, pp.~3--23, Edinburgh, UK:
+  Edinburgh University Press, 1969.
+
+\bibitem{Turing1950}
+A.~M. Turing, ``{Computing Machinery and Intelligence},'' {\em Mind}, vol.~59,
+  no.~236, pp.~433----460, 1950.
+
+\bibitem{Hopcroft1979}
+J.~E. Hopcroft, R.~Motwani, and J.~D. Ullman, {\em Introduction to automata
+  theory, languages, and computation}, vol.~32.
+\newblock ACM, 2001.
+
+\bibitem{Zhang2014}
+L.~Zhang, T.~Tiropanis, W.~Hall, and S.-H. Myaeng, ``{Introducing the
+  omega-machine},'' {\em Proceedings of the 23rd International Conference on
+  World Wide Web - WWW '14 Companion}, pp.~905--908, 2014.
+
+\bibitem{Turing1938}
+A.~M. Turing, ``{Systems of Logic Based on Ordinals},'' {\em Proceedings of the
+  London Mathematical Society}, no.~1938, 1938.
+
+\bibitem{newscientist_2014}
+T.~Gauld, ``Turing's oracle: The computer that goes beyond logic.'' [Online].
+  Available:
+  \url{https://www.newscientist.com/article/mg22329780-400-turings-oracle-the-computer-that-goes-beyond-logic/},
+  July 2014.
+
+\bibitem{Melkebeek}
+v.~M. Dieter, ``{Randomness and Completeness in Computational Complexity},''
+  {\em Lecture Notes in Computer Science 1950}, 2000.
+
+\bibitem{adachi1990foundations}
+A.~Adachi, {\em Foundations of Computation Theory}.
+\newblock IOS Press, 1990.
+
+\bibitem{Luczak-Rosch2015}
+M.~Luczak-R{\"{o}}sch, R.~Tinati, K.~O'Hara, and N.~Shadbolt,
+  ``{Socio-technical computation},'' {\em Proceedings of the 18th ACM
+  Conference Companion on Computer Supported Cooperative Work {\&} Social
+  Computing (CSCW'15 Companion)}, pp.~139--142, 2015.
+
+\bibitem{berners2001weaving}
+T.~Berners-Lee and M.~Fischetti, {\em Weaving the Web: The original design and
+  ultimate destiny of the World Wide Web by its inventor}.
+\newblock DIANE Publishing Company, 2001.
+
+\bibitem{Shadbolt2009}
+N.~R. Shadbolt, D.~A. Smith, E.~Simperl, M.~{Van Kleek}, Y.~Yang, and W.~Hall,
+  ``{Towards a Classification Framework of Social Machines},'' {\em SOCM2013:
+  The Theory and Practice of Social Machines}, vol.~19, no.~2, pp.~387--401,
+  2009.
+
+\bibitem{simonite2013decline}
+T.~Simonite, ``The decline of wikipedia: Even as more people than ever rely on
+  it, fewer people create it,'' {\em MIT Technol Rev}, 2013.
+
+\bibitem{Ahn2006}
+L.~V. Ahn, ``{Games with a Purpose},'' {\em Computer}, vol.~39, pp.~92--94,
+  2006.
+
+\bibitem{von2008designing}
+L.~Von~Ahn and L.~Dabbish, ``Designing games with a purpose,'' {\em
+  Communications of the ACM}, vol.~51, no.~8, pp.~58--67, 2008.
+
+\bibitem{Robertson2013}
+D.~Robertson and F.~Giunchiglia, ``{Programming the social computer.},'' {\em
+  Philosophical transactions. Series A, Mathematical, physical, and engineering
+  sciences}, vol.~371, no.~1987, p.~20120379, 2013.
+
+\bibitem{tang2011reflecting}
+J.~C. Tang, M.~Cebrian, N.~A. Giacobe, H.-W. Kim, T.~Kim, and D.~B. Wickert,
+  ``Reflecting on the darpa red balloon challenge,'' {\em Communications of the
+  ACM}, vol.~54, no.~4, pp.~78--85, 2011.
+
+\bibitem{Goldin2004}
+D.~Q. Goldin, S.~A. Smolka, P.~C. Attie, and E.~L. Sonderegger, ``{Turing
+  machines, transition systems, and interaction},'' {\em Information and
+  Computation}, vol.~194, no.~2, pp.~101--128, 2004.
+
+\bibitem{Wegner1997}
+P.~Wegner, ``Why interaction is more powerful than algorithms,'' {\em Commun.
+  ACM}, vol.~40, pp.~80--91, May 1997.
+
+\bibitem{Copeland1998}
+B.~J. Copeland, ``Turing’s o-machines, searle, penrose and the brain,'' {\em
+  Analysis}, vol.~58, no.~2, pp.~128--138, 1998.
+
+\bibitem{rodger2006jflap}
+S.~H. Rodger and T.~W. Finley, {\em JFLAP: an interactive formal languages and
+  automata package}.
+\newblock Jones \& Bartlett Learning, 2006.
+
+\bibitem{schätzle_2014}
+C.~Schätzle, ``Tursi - a turing machine simulator.'' [Online]. Available:
+  \url{http://ais.informatik.uni-freiburg.de/tursi/index.html}, 2014.
+\newblock [Accessed: Aug. 15, 2019].
+
+\bibitem{kellett}
+O.~Kellett, ``The busy beaver problem : A new millennium attack.'' [Online].
+  Available:
+  \url{http://www.cogsci.rpi.edu/~heuveb/research/BB/downloads.html}.
+
+\bibitem{rossnew}
+K.~Ross, O.~Kellett, B.~van Heuveln, and S.~Bringsjord, ``A new-millenium
+  attack on the busy beaver problem,''
+
+\bibitem{satyr9_timestokes_2007}
+satyr9 and timestokes, ``Tuatara turing machine simulator.'' [Online].
+  Available: \url{https://sourceforge.net/projects/tuataratmsim/}, 2007.
+
+\bibitem{archonius_hugork_2010}
+archonius and hugork, ``Tm simulator.'' [Online]. Available:
+  \url{https://sourceforge.net/projects/turingsimulator/}, 2010.
+
+\bibitem{neuber_pahl_seichter_2005}
+D.~Neuber, O.~Pahl, and D.~Seichter, ``Alan - a turing machine in java.''
+  [Online]. Available: \url{http://alan.sourceforge.net/}, 2005.
+
+\bibitem{ugarte_2017}
+M.~Ugarte, ``Online turing machine simulator.'' [Online]. Available:
+  \url{https://turingmachinesimulator.com/}, 2017.
+
+\bibitem{morphett}
+A.~Morphett, ``Turing machine simulator.'' [Online]. Available:
+  \url{http://morphett.info/turing/}.
+
+\bibitem{eck}
+D.~J. Eck, ``Turing machine simulator.'' [Online]. Available:
+  \url{http://math.hws.edu/eck/js/turing-machine/TM.html}.
+
+\bibitem{jmarcost_2004}
+jmarcost, ``Turingsym.'' [Online]. Available:
+  \url{https://sourceforge.net/projects/turingsym/}, 2004.
+
+\bibitem{AnnaKutsevaGitHub}
+A.~Kutseva, ``Exploring turing machine simulations on social machines.''
+  [Online]. Available: \url{https://github.com/annythingy/individual-project}.
+\newblock [Accessed: Aug. 16, 2019].
+
+\bibitem{eclipse_2019}
+{Eclipse Foundation}, ``Eclipse.'' [Online]. Available:
+  \url{https://www.eclipse.org/}, 2019.
+
+\bibitem{java_8}
+{Oracle Corporation}, ``{Java SE Development Kit 8}.'' [Online]. Available:
+  \url{https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html},
+  2019.
+
+\bibitem{maven}
+{Apache Software Foundation}, ``{Maven Repository}.'' [Online]. Available:
+  \url{https://mvnrepository.com}, 2019.
+
+\bibitem{procopiuc1996visualization}
+M.~Procopiuc, O.~Procopiuc, and S.~H. Rodger, ``Visualization and interaction
+  in the computer science formal languages course with jflap,'' in {\em
+  Technology-Based Re-Engineering Engineering Education Proceedings of
+  Frontiers in Education FIE'96 26th Annual Conference}, vol.~1, pp.~121--125,
+  IEEE, 1996.
+
+\bibitem{sociam}
+{SOCIAM}, ``Sociam: The theory and practice of social machines.'' [Online].
+  Available: \url{https://sociam.org/}.
+\newblock [Accessed: Aug. 16, 2019].
+
+\end{thebibliography}

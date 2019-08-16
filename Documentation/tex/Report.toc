@@ -1,0 +1,62 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {paragraph}{Problem}{1}{section*.3}
+\contentsline {paragraph}{Goals}{1}{section*.4}
+\contentsline {paragraph}{Scope}{1}{section*.5}
+\contentsline {paragraph}{Structure}{2}{section*.6}
+\contentsline {paragraph}{Ethics}{2}{section*.7}
+\contentsline {section}{\numberline {2}Literature Review}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Turing Machines}{3}{subsection.2.1}
+\contentsline {paragraph}{Concept}{3}{section*.8}
+\contentsline {paragraph}{Formal definition\nobreakspace {}\cite {Hopcroft1979}}{3}{section*.9}
+\contentsline {subsection}{\numberline {2.2}O-machines}{4}{subsection.2.2}
+\contentsline {paragraph}{Oracle Definitions}{4}{section*.10}
+\contentsline {subsection}{\numberline {2.3}Social Machines}{5}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Social Machine and Computation Examples}{6}{subsubsection.2.3.1}
+\contentsline {paragraph}{Wikipedia}{6}{section*.11}
+\contentsline {paragraph}{Games with a Purpose}{6}{section*.12}
+\contentsline {paragraph}{The DARPA Network Challenge}{6}{section*.13}
+\contentsline {subsection}{\numberline {2.4}Tying It Together}{7}{subsection.2.4}
+\contentsline {section}{\numberline {3}Problem Analysis}{8}{section.3}
+\contentsline {subsection}{\numberline {3.1}Formalising the concept}{8}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}The Omega Machine}{8}{subsection.3.2}
+\contentsline {paragraph}{Dependent oracles}{8}{section*.14}
+\contentsline {paragraph}{Divergent dependent oracles}{9}{section*.15}
+\contentsline {paragraph}{Independent oracles}{9}{section*.16}
+\contentsline {paragraph}{Summary}{9}{section*.17}
+\contentsline {subsection}{\numberline {3.3}Specification}{10}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Requirements Elicitation}{10}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Existing Software}{11}{subsubsection.3.3.2}
+\contentsline {paragraph}{Criteria}{11}{section*.18}
+\contentsline {paragraph}{Options}{12}{section*.19}
+\contentsline {paragraph}{Review and choice}{12}{section*.20}
+\contentsline {section}{\numberline {4}Method}{14}{section.4}
+\contentsline {subsection}{\numberline {4.1}Design}{14}{subsection.4.1}
+\contentsline {paragraph}{Existing tools for Turing machine creation}{14}{section*.21}
+\contentsline {paragraph}{Object-oriented Omega machines}{14}{section*.22}
+\contentsline {paragraph}{Recycling JFLAP components for Omega machine creation}{15}{section*.23}
+\contentsline {paragraph}{File structure}{15}{section*.24}
+\contentsline {paragraph}{Running simulations}{18}{section*.25}
+\contentsline {paragraph}{The execution loop}{18}{section*.26}
+\contentsline {paragraph}{Gossiping neighbours}{18}{section*.27}
+\contentsline {paragraph}{Stepping through the execution of an Omega machine}{19}{section*.28}
+\contentsline {subsection}{\numberline {4.2}Implementation}{19}{subsection.4.2}
+\contentsline {paragraph}{Setup}{19}{section*.29}
+\contentsline {paragraph}{Restrictions}{19}{section*.30}
+\contentsline {section}{\numberline {5}Evaluation}{22}{section.5}
+\contentsline {subsection}{\numberline {5.1}Lie Detector}{22}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Collective Intelligence}{23}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Rumour Spreading}{24}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Software Suitability}{25}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Requirements completion}{26}{subsection.5.5}
+\contentsline {section}{\numberline {6}Conclusion}{27}{section.6}
+\contentsline {paragraph}{Reflection}{27}{section*.31}
+\contentsline {paragraph}{Improvements}{27}{section*.32}
+\contentsline {paragraph}{Future work}{28}{section*.33}
+\contentsline {paragraph}{Closing thoughts}{28}{section*.34}
+\contentsline {section}{\numberline {7}Bibliography}{29}{section.7}
+\contentsline {section}{\numberline {A}Appendices}{32}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}Risk Analysis}{32}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}Contingency Plans}{33}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}Gantt Chart}{33}{subsection.A.3}
+\contentsline {subsection}{\numberline {A.4}JFLAP Omega Machine Traces}{35}{subsection.A.4}
+\contentsline {subsection}{\numberline {A.5}Original Project Brief}{37}{subsection.A.5}
