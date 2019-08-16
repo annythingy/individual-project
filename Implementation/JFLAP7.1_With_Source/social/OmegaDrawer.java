@@ -17,6 +17,7 @@ import automata.turing.TuringMachine;
 import gui.viewer.AutomatonDrawer;
 import gui.viewer.SelectionDrawer;
 import gui.viewer.StateDrawer;
+import social.oracles.OracleMachine;
 
 public class OmegaDrawer extends AutomatonDrawer {
 

@@ -21,6 +21,7 @@ import file.xml.AbstractTransducer;
 import file.xml.AutomatonTransducer;
 import file.xml.MooreTransducer;
 import file.xml.TMTransducer;
+import social.oracles.OracleMachine;
 
 public class OmegaTransducer extends AbstractTransducer {
 
@@ -209,9 +210,15 @@ public class OmegaTransducer extends AbstractTransducer {
 			if (hasLocation && locatedOMs != null)
 				locatedOMs.add(om);
 			i2s.put(id, om);
+
 			String name = ((Element) omNode).getAttribute("name");
-			if(name.equals("")) om.setName("o"+id.intValue());
-            else om.setName(name);
+			String type = ((Element) omNode).getAttribute("type");
+			String attributes = ((Element) omNode).getAttribute("attributes");
+			if(name.equals(""))
+				om.setName("o"+id.intValue());
+            else
+            	om.setName(name);
+			om.setOracle(type, attributes);
 		}
 	}
 	
@@ -283,7 +290,9 @@ public class OmegaTransducer extends AbstractTransducer {
 	protected Element createOracleMachineElement(Document doc, OracleMachine om, OmegaMachine container) {
 		Element se = createElement(doc, "oracleMachine", null, null);
 		se.setAttribute("id", "" + om.getID());
-		se.setAttribute("name", "" + om.getName());
+		se.setAttribute("name", om.getName());
+		se.setAttribute("type", om.getType());
+		se.setAttribute("attributes", om.getAttributes());
 		se.appendChild(createElement(doc, "x", null, "" + om.getPoint().getX()));
 		se.appendChild(createElement(doc, "y", null, "" + om.getPoint().getY()));
 		return se;

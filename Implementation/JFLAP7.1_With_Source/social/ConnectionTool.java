@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 
 import gui.editor.Tool;
 import gui.viewer.AutomatonPane;
+import social.oracles.OracleMachine;
 
 public class ConnectionTool extends Tool {
 	

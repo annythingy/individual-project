@@ -16,6 +16,7 @@ import automata.Transition;
 import automata.turing.TuringMachine;
 import automata.turing.TuringMachineBuildingBlocks;
 import gui.action.OpenAction;
+import social.oracles.OracleMachine;
 
 public class OmegaMachine extends Automaton implements Serializable {
 	

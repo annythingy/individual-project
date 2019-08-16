@@ -1,6 +1,7 @@
 package social;
 
 import gui.viewer.SelectionDrawer;
+import social.oracles.OracleMachine;
 
 public class OracleDrawer extends SelectionDrawer{
 	

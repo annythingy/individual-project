@@ -60,9 +60,9 @@ public class TMTransducer extends AutomatonTransducer {
 			s = "1";
 		try {
 			int tapes = Integer.parseInt(s);
-			if (tapes < 1 || tapes > 5)
+			if (tapes < 1 || tapes > 10)
 				throw new DataException(tapes
-						+ " invalid # of tapes.  Valid # of tapes 1-5.");
+						+ " invalid # of tapes.  Valid # of tapes 1-10.");
 			return new TuringMachine(tapes);
 		} catch (NumberFormatException e) {
 			throw new DataException("Error reading " + s

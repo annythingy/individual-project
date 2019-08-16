@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import gui.editor.EditorPane;
+import social.oracles.OracleMachine;
 
 public class OracleMachinePane extends JPanel {
 

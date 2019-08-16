@@ -1,12 +1,20 @@
-package social;
+package social.oracles;
 
 import automata.turing.Tape;
+import social.OmegaConfiguration;
 
 public class RumourSpreadingOracle extends Oracle {
 
 	public RumourSpreadingOracle(OracleMachine parent) {
-		this.parent = parent;
-		this.internalTape = new Tape();
+		super(parent);
+	}
+
+	@Override
+	public void setAttributes(String attributes) { }
+	
+	@Override
+	public String getAttributes() {
+		return "";
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-package social;
+package social.oracles;
 
 import java.awt.Point;
 import java.util.HashSet;
@@ -7,13 +7,16 @@ import java.util.Set;
 import automata.Automaton;
 import automata.turing.Tape;
 import automata.turing.TuringMachine;
+import social.OmegaConfiguration;
+import social.OmegaMachine;
+import social.PersistentTuringMachine;
 
 public class OracleMachine extends Automaton {
 
 	private static final long serialVersionUID = 1L; // TODO what is that?
 
-	Integer id;
-	Point point;
+	public Integer id;
+	public Point point;
 	PersistentTuringMachine tmCore;
 	
 	OmegaMachine omegaParent;
@@ -21,7 +24,7 @@ public class OracleMachine extends Automaton {
 	
 	String defaultName = "Someone";
 
-	Set<OracleMachine> neighbours;
+	public Set<OracleMachine> neighbours;
 
 	Oracle oracle;
 	Tape internalState;
@@ -33,7 +36,7 @@ public class OracleMachine extends Automaton {
 		this.point = point;
 		this.tmCore = null;
 		this.name = defaultName;
-		oracle = new RumourSpreadingOracle(this);
+		oracle = new NoOpOracle(this);
 		this.neighbours = new HashSet<OracleMachine>();
 		this.omegaParent = omegaParent;
 		this.internalState = new Tape();
@@ -45,6 +48,23 @@ public class OracleMachine extends Automaton {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public void setOracle(String type, String attributes) {
+		oracle = Oracle.constructOracle(type, this);
+		oracle.setAttributes(attributes);
+	}
+	
+	public void setAttributes(String attributes) {
+		oracle.setAttributes(attributes);
+	}
+	
+	public String getType() {
+		return oracle.getClass().getSimpleName();
+	}
+	
+	public String getAttributes() {
+		return oracle.getAttributes();
 	}
 	
 	public void setName(String name){

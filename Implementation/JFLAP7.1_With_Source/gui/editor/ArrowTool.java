@@ -30,9 +30,10 @@ import gui.viewer.AutomatonPane;
 import gui.viewer.CurvedArrow;
 import social.EditPTMPane;
 import social.OmegaDrawer;
-import social.OracleMachine;
 import social.OracleMachinePane;
 import social.PersistentTuringMachine;
+import social.oracles.Oracle;
+import social.oracles.OracleMachine;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -882,9 +883,12 @@ public class ArrowTool extends Tool {
 		private static final long serialVersionUID = 1L;
 
 		private PersistentTuringMachine ptm;
-		private JMenuItem viewTM, editTM;	
+		private JMenuItem renameTM, editTM;
 		
 		public OmegaPTMenu() {
+			renameTM = new JMenuItem("Rename Machine");
+			renameTM.addActionListener(this);
+			this.add(renameTM);
 			editTM = new JMenuItem("Edit Machine");
 			editTM.addActionListener(this);
 			this.add(editTM);
@@ -900,7 +904,14 @@ public class ArrowTool extends Tool {
             if (getDrawer().getAutomaton().getEnvironmentFrame() != null)
                 ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
             
-            if (item == editTM) { 
+            if (item == renameTM) {
+				String oldName = ptm.getName();
+				oldName = oldName == null ? "" : oldName;
+				String newName = (String) JOptionPane.showInputDialog(this,
+						"Set name:", "Rename Machine",
+						JOptionPane.QUESTION_MESSAGE, null, null, oldName);
+				ptm.setName(newName);
+            } else if (item == editTM) {
             	OmegaMachine parent = ptm.getOmegaParent();
             	
             	EditPTMPane editor = new EditPTMPane(ptm);
@@ -925,15 +936,18 @@ public class ArrowTool extends Tool {
 		private static final long serialVersionUID = 1L;
 
 		OracleMachine om;
-		private JMenuItem itemRename, itemEdit;
+		private JMenuItem itemRename, itemEdit, attEdit;
 		
 		public OracleMachineMenu() {
-			itemRename = new JMenuItem("Rename machine");
+			itemRename = new JMenuItem("Rename Oracle");
 			itemRename.addActionListener(this);
 			this.add(itemRename);
-			itemEdit = new JMenuItem("Edit machine");
+			itemEdit = new JMenuItem("Edit Oracle");
 			itemEdit.addActionListener(this);
 			this.add(itemEdit);
+			attEdit = new JMenuItem("Edit Attributes");
+			attEdit.addActionListener(this);
+			this.add(attEdit);
 		}
 
 		public void show(OracleMachine om, Component comp, Point at) {
@@ -959,18 +973,25 @@ public class ArrowTool extends Tool {
 					newName = null;
 				om.setName(newName);
             } else if (item == itemEdit) {
-            	OmegaMachine parent = om.getOmegaParent();
-            	
-				EnvironmentFrame rootFrame = parent.getEnvironmentFrame();
-				
-				OracleMachinePane input = new OracleMachinePane(om);
+            	String oldType = om.getType();
+            	String oldAttributes = om.getAttributes();
 
-				Environment envir = rootFrame.getEnvironment();
-				envir.add(input, "Edit OM", new CriticalTag() {
-				});
-				envir.setActive(input);
+				String[] Oracles = Oracle.OracleList();
+				String type = (String) JOptionPane.showInputDialog(null,
+						"Set Oracle type:", "Change Oracle",
+						JOptionPane.QUESTION_MESSAGE, null, Oracles, oldType);
+
+				String attributes = (String) JOptionPane.showInputDialog(null,
+						"Set Oracle attributes (if necessary):", "Change Oracle",
+						JOptionPane.QUESTION_MESSAGE, null, null, oldAttributes);
+				om.setOracle(type, attributes);
+            } else if (item == attEdit) {
+				String attributes = (String) JOptionPane.showInputDialog(null,
+						"Set Oracle attributes:", "Change Attributes",
+						JOptionPane.QUESTION_MESSAGE, null, null, om.getAttributes());
+				om.setAttributes(attributes);
             }
-            
+
 			getView().repaint();
 		}
 	}

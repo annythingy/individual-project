@@ -14,7 +14,16 @@ public class OmegaConfiguration extends TMConfiguration {
 	
 	@Override
 	public boolean isAccept() {
-		Tape stateTape = getTapes()[0];
-		return stateTape.getContents().equals("X");
+		int currTape = 0;
+		for(Tape t : getTapes()) {
+			String tapeContents = t.getContents();
+			if(((currTape != 1) && ((tapeContents.charAt(0) != Tape.BLANK) || (tapeContents.length() > 1)))
+				|| ((currTape == 1) && (tapeContents.length() <= 1) && (tapeContents.charAt(0) == Tape.BLANK)))
+				return false;
+			
+			currTape++;
+		}
+		
+		return true;
 	}
 }

@@ -14,10 +14,11 @@ import automata.Transition;
 import automata.turing.AcceptanceFilter;
 import automata.turing.TMTransition;
 import automata.turing.Tape;
+import social.oracles.OracleMachine;
 
 // TODO: Oh boy it would be nice if this was Simulator<Omega> but that means rewriting the whole system.
 public class OmegaSimulator extends AutomatonSimulator {
-	public static final int BLANK_CHAR = 9633;
+	public static final char ANY_CHAR = '~';
 
 	public OmegaSimulator(Automaton automaton) {
 		super(automaton);
@@ -69,12 +70,8 @@ public class OmegaSimulator extends AutomatonSimulator {
 			System.out.print(t.getContents() + " : ");
 		System.out.print('\n');
 		
-		// Early termination if our PTM core reaches an accept state
-		if(isAccepted())
-			return branches;
-		
 		// If Final State execute Oracles and go to Initial
-	    else if(myAutomaton.isFinalState(currState)) {
+	    if(myAutomaton.isFinalState(currState)) {
 	    	System.out.println("Executing Omegas...");
 			for(OracleMachine oracle : ((OmegaMachine) myAutomaton).getOracleMachines()) {
 				// TODO: Execute based on context and tape ID?
@@ -93,7 +90,7 @@ public class OmegaSimulator extends AutomatonSimulator {
 				boolean readsSatisfied = true;
 				for(int t = 0; t < oldTapes.length; t++) {
 					String expected = ((TMTransition) trn).getRead(t);
-					if(expected.codePointAt(0) == BLANK_CHAR)
+					if(expected.charAt(0) == ANY_CHAR)
 						continue;
 					if(!oldTapes[t].read().equals(expected))
 						readsSatisfied = false;
@@ -106,7 +103,7 @@ public class OmegaSimulator extends AutomatonSimulator {
 				for(int t = 0; t < oldTapes.length; t++) {
 					String newChar = ((TMTransition) trn).getWrite(t);
 					newTapes[t] = new Tape(oldTapes[t]);
-					if(newChar.codePointAt(0) != BLANK_CHAR)
+					if(newChar.charAt(0) != ANY_CHAR)
 						newTapes[t].write(newChar);
 					newTapes[t].moveHead(((TMTransition) trn).getDirection(t));
 				}
@@ -134,19 +131,30 @@ public class OmegaSimulator extends AutomatonSimulator {
 
 		// Should only be single configuration as is deterministic, but just in case check all
 		while (it.hasNext()) {
+			boolean branchAccepted = true;
 			OmegaConfiguration configuration = (OmegaConfiguration) it.next();
 			State currentState = configuration.getCurrentState();
 
 			if(!myAutomaton.isFinalState(currentState)) {
-				return false;
+				continue;
 			}
 			
-			// Check state tape == X
-			Tape stateTape = configuration.getTapes()[0];
-			if(!stateTape.getContents().equals("X")) return false;
+			// Check all tapes except the output tape are empty (i.e. no more work)
+			int tapeNum = 0;
+			for(Tape t : configuration.getTapes()) {
+				String tapeContents = t.getContents();
+				if(((tapeNum != 1) && ((tapeContents.charAt(0) != Tape.BLANK) || (tapeContents.length() > 1)))
+					|| ((tapeNum == 1) && (tapeContents.length() <= 1) && (tapeContents.charAt(0) == Tape.BLANK)))
+					branchAccepted = false;
+
+				tapeNum++;
+			}
+			
+			if(branchAccepted)
+				return true;
 		} 
 
-		return true;
+		return false;
 	}
 
 	/*

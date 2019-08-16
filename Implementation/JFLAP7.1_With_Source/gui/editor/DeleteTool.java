@@ -26,8 +26,8 @@ import gui.viewer.AutomatonPane;
 import social.Connection;
 import social.OmegaDrawer;
 import social.OmegaMachine;
-import social.OracleMachine;
 import social.PersistentTuringMachine;
+import social.oracles.OracleMachine;
 
 import java.awt.event.MouseEvent;
 

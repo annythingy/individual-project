@@ -2,6 +2,8 @@ package social;
 
 import java.awt.Polygon;
 
+import social.oracles.OracleMachine;
+
 public class Connection {
 
 	OracleMachine omA, omB;
